@@ -24,6 +24,8 @@
   --line-strong:rgba(255,210,122,.55);
   --gl:max(16px,env(safe-area-inset-left,0px));
   --gr:max(16px,env(safe-area-inset-right,0px));
+  --tabs-h:92px;
+  --bar-h:152px;
   --ui:'Be Vietnam Pro','Segoe UI',Arial,sans-serif;
   --serif:'Cormorant Garamond',Georgia,serif;
   --script:'Mountains of Christmas',Georgia,serif;
@@ -63,7 +65,6 @@ button{
   -webkit-tap-highlight-color:transparent;
   transition:transform .2s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease;
 }
-button:hover{transform:translateY(-1px)}
 button:active{transform:translateY(0)}
 button:focus-visible,textarea:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 button[aria-pressed="true"]{
@@ -95,11 +96,6 @@ button[aria-pressed="true"]{
   letter-spacing:.3px;
   color:rgba(255,244,226,.85);
 }
-.tabs button:hover{
-  border-color:rgba(255,210,122,.4);
-  background:rgba(34,20,42,.85);
-  color:var(--ink);
-}
 .tabs button[aria-pressed="true"]{
   background:linear-gradient(135deg,rgba(255,210,122,.25),rgba(255,122,154,.14));
   border-color:rgba(255,210,122,.7);
@@ -111,7 +107,7 @@ button[aria-pressed="true"]{
 .scene{
   position:absolute;inset:0;z-index:1;
   display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
-  padding:calc(58px + env(safe-area-inset-top)) var(--gr) calc(152px + env(safe-area-inset-bottom)) var(--gl);
+  padding:calc(var(--tabs-h) + 8px) var(--gr) calc(var(--bar-h) + 8px) var(--gl);
   opacity:0;visibility:hidden;pointer-events:none;
   overflow-y:auto;overscroll-behavior:contain;
   transition:opacity .7s cubic-bezier(.4,0,.2,1),visibility .7s;
@@ -133,7 +129,10 @@ button[aria-pressed="true"]{
 .eyebrow::after{background:linear-gradient(90deg,var(--gold),transparent)}
 
 .script{
-  font:700 clamp(48px,14vw,92px)/1.08 var(--script);
+  display: inline-block;
+  font:700 clamp(44px,13vw,92px)/1.2 var(--script);
+  letter-spacing: 1px;
+  padding: 0.1em 0 0.2em;
   margin-top:10px;
   background:linear-gradient(90deg,#ffe9b0 0%,#ffd27a 22%,#ff9a8a 50%,#ffd27a 78%,#ffe9b0 100%);
   background-size:200% 100%;
@@ -147,7 +146,9 @@ button[aria-pressed="true"]{
 }
 
 .year{
-  font:700 clamp(100px,34vw,205px)/.98 var(--serif);
+  display: inline-block;
+  font:700 clamp(90px,30vw,205px)/1.1 var(--serif);
+  padding: 0.1em 0;
   letter-spacing:2px;
   background:linear-gradient(100deg,#ffd27a 0%,#ff9a5a 30%,#ff7a9a 50%,#ff9a5a 70%,#ffd27a 100%);
   background-size:200% 100%;
@@ -157,7 +158,9 @@ button[aria-pressed="true"]{
 }
 
 .tet-title{
-  font:700 clamp(46px,12vw,88px)/1.05 var(--serif);
+  display: inline-block;
+  font:700 clamp(42px,11vw,88px)/1.2 var(--serif);
+  padding: 0.1em 0;
   margin-top:10px;
   background:linear-gradient(100deg,#ffe9a8 0%,#ffc857 30%,#ff7a5a 55%,#ffc857 80%,#ffe9a8 100%);
   background-size:200% 100%;
@@ -176,30 +179,6 @@ button[aria-pressed="true"]{
   font-size:clamp(15px,4vw,18px);font-style:italic;color:var(--gold);
   opacity:.9;
 }
-
-.tree{
-  width:clamp(95px,25vw,135px);height:auto;margin-bottom:10px;
-  filter:drop-shadow(0 0 18px rgba(255,210,122,.4));
-  animation:treeGlow 4s ease-in-out infinite;
-}
-@keyframes treeGlow{
-  0%,100%{filter:drop-shadow(0 0 18px rgba(255,210,122,.4))}
-  50%{filter:drop-shadow(0 0 30px rgba(255,210,122,.7))}
-}
-
-.ghost{
-  margin-top:18px;
-  background:none;border:0;
-  color:var(--muted);font-size:13px;font-weight:600;
-  padding:8px 16px;position:relative;
-  opacity:.85;transition:color .2s ease,opacity .2s ease;
-}
-.ghost::after{
-  content:'';position:absolute;left:16px;right:16px;bottom:5px;height:1px;
-  background:currentColor;opacity:.35;transition:opacity .2s ease;
-}
-.ghost:hover{color:var(--gold);opacity:1}
-.ghost:hover::after{opacity:.8}
 
 /* ===== Countdown ===== */
 .countdown{
@@ -237,9 +216,29 @@ button[aria-pressed="true"]{
   font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);
   font-weight:600;
 }
-.cd-note{
-  margin-top:12px;font-size:12px;color:var(--muted);max-width:34ch;
-  opacity:.8;
+
+/* Thay thế nút Bỏ qua & dòng ghi chú */
+.welcome-line {
+  margin-top: 20px;
+  font: 700 clamp(18px, 5vw, 24px)/1.4 var(--serif);
+  color: var(--gold);
+  letter-spacing: 1px;
+  text-shadow: 0 0 20px rgba(255, 210, 122, 0.5);
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.8; text-shadow: 0 0 15px rgba(255, 210, 122, 0.4); }
+  50% { opacity: 1; text-shadow: 0 0 28px rgba(255, 210, 122, 0.8); }
+}
+
+.tree{
+  width:clamp(95px,25vw,135px);height:auto;margin-bottom:10px;
+  filter:drop-shadow(0 0 18px rgba(255,210,122,.4));
+  animation:treeGlow 4s ease-in-out infinite;
+}
+@keyframes treeGlow{
+  0%,100%{filter:drop-shadow(0 0 18px rgba(255,210,122,.4))}
+  50%{filter:drop-shadow(0 0 30px rgba(255,210,122,.7))}
 }
 
 /* ===== Envelope ===== */
@@ -260,13 +259,6 @@ button[aria-pressed="true"]{
     0 0 30px rgba(255,210,122,.18);
   overflow:hidden;
   transition:transform .3s ease,box-shadow .3s ease;
-}
-.envelope:hover{
-  transform:translateY(-3px);
-  box-shadow:
-    0 18px 44px rgba(0,0,0,.55),
-    inset 0 0 0 4px rgba(255,210,122,.22),
-    0 0 44px rgba(255,210,122,.32);
 }
 .envelope:active{transform:translateY(-1px)}
 .flap{
@@ -325,10 +317,6 @@ button[aria-pressed="true"]{
   backdrop-filter:blur(10px);
   -webkit-backdrop-filter:blur(10px);
 }
-.bar button:hover{
-  border-color:rgba(255,210,122,.5);
-  background:rgba(40,22,48,.88);
-}
 
 /* ===== Sheet ===== */
 .sheet{
@@ -353,80 +341,44 @@ button[aria-pressed="true"]{
   animation:sheetUp .45s cubic-bezier(.2,.9,.25,1);
 }
 @keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.sheet-head,.form-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.sheet-head{margin-bottom:14px}
+.sheet-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
 .sheet-head h2{font:700 24px var(--serif);color:var(--gold)}
-label{display:block;margin-bottom:7px;font-size:13px;color:var(--muted)}
-textarea{
-  display:block;width:100%;min-height:88px;resize:vertical;
-  padding:12px 14px;
-  border:1px solid var(--line);
-  border-radius:14px;
-  background:rgba(7,5,11,.6);
-  color:var(--ink);font-size:16px;line-height:1.4;
-  transition:border-color .2s ease;
-}
-textarea:focus{border-color:var(--line-strong)}
-.form-row{margin-top:10px}
-.form-row span{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
 
-.primary{
-  background:linear-gradient(135deg,#ffd27a,#ffb347);
-  color:#2a1426;border-color:transparent;font-weight:800;
-  box-shadow:0 4px 18px rgba(255,180,80,.3);
+/* Tab trong Lời chúc */
+.wish-tabs {
+  display: flex; gap: 8px; margin-bottom: 14px;
 }
-.primary:hover{
-  box-shadow:0 6px 24px rgba(255,180,80,.5);
-  border-color:transparent;
+.wish-tab {
+  flex: 1; padding: 10px; font-size: 13px;
+  background: rgba(255, 210, 122, 0.05);
+  border: 1px solid rgba(255, 210, 122, 0.2);
+  color: var(--muted);
 }
-.primary:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
+.wish-tab[aria-pressed="true"] {
+  background: rgba(255, 210, 122, 0.18);
+  border-color: var(--gold);
+  color: #ffe9b0;
+  box-shadow: 0 0 15px rgba(255, 210, 122, 0.15);
+}
 
 .mini{padding:6px 11px;font-size:12px;flex:none}
 
 .wish-list{
-  list-style:none;display:grid;gap:8px;margin-top:16px;
-  max-height:28vh;overflow:auto;
+  list-style:none;display:grid;gap:10px;margin-top:16px;
 }
 .wish-list li{
-  display:flex;align-items:center;justify-content:space-between;gap:10px;
-  padding:12px 14px;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+  padding:14px;
   border:1px solid var(--line);
-  border-radius:12px;
+  border-radius:14px;
   background:linear-gradient(135deg,rgba(255,210,122,.06),rgba(255,210,122,.015));
-  text-align:left;font-size:14px;line-height:1.4;
+  text-align:left;font-size:14px;line-height:1.5;
   transition:border-color .2s ease,background .2s ease;
 }
-.wish-list li:hover{
-  border-color:var(--line-strong);
-  background:linear-gradient(135deg,rgba(255,210,122,.12),rgba(255,210,122,.03));
-}
-.wish-list li span{min-width:0;overflow-wrap:anywhere}
-.wish-list li.empty{
-  display:block;text-align:center;color:var(--muted);
-  background:none;border-style:dashed;
-}
-
-.wish-float{
-  position:absolute;bottom:30%;z-index:15;pointer-events:none;
-  transform:translateX(-50%);
-  max-width:min(78vw,300px);
-  padding:12px 16px;
-  border:1px solid var(--line-strong);
-  border-radius:16px;
-  background:linear-gradient(180deg,rgba(40,22,48,.96),rgba(18,9,24,.96));
-  box-shadow:0 10px 32px rgba(0,0,0,.5),0 0 24px rgba(255,210,122,.15);
-  font:600 18px/1.35 var(--serif);
-  text-align:center;overflow-wrap:anywhere;
-  animation:wishRise 7s ease-out forwards;
-}
-@keyframes wishRise{
-  0%{opacity:0;transform:translate(-50%,24px)}
-  12%,80%{opacity:1;transform:translate(-50%,0)}
-  100%{opacity:0;transform:translate(-50%,-160px)}
-}
+.wish-list li span{min-width:0;overflow-wrap:anywhere;flex:1;padding-top:4px}
 
 .toast{
-  position:absolute;top:calc(env(safe-area-inset-top) + 65px);left:50%;z-index:40;
+  position:absolute;top:calc(var(--tabs-h) + 8px);left:50%;z-index:40;
   transform:translate(-50%,-8px);
   max-width:88vw;padding:10px 18px;
   border:1px solid var(--line);border-radius:999px;
@@ -439,12 +391,41 @@ textarea:focus{border-color:var(--line-strong)}
 }
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
+/* ===== Hover chỉ áp dụng trên thiết bị có chuột ===== */
+@media(hover:hover){
+  button:hover{transform:translateY(-1px)}
+  .tabs button:hover{
+    border-color:rgba(255,210,122,.4);
+    background:rgba(34,20,42,.85);
+    color:var(--ink);
+  }
+  .bar button:hover{
+    border-color:rgba(255,210,122,.5);
+    background:rgba(40,22,48,.88);
+  }
+  .envelope:hover{
+    transform:translateY(-3px);
+    box-shadow:
+      0 18px 44px rgba(0,0,0,.55),
+      inset 0 0 0 4px rgba(255,210,122,.22),
+      0 0 44px rgba(255,210,122,.32);
+  }
+  .wish-list li:hover{
+    border-color:var(--line-strong);
+    background:linear-gradient(135deg,rgba(255,210,122,.12),rgba(255,210,122,.03));
+  }
+  .wish-tab:hover:not([aria-pressed="true"]) {
+    background: rgba(255, 210, 122, 0.1);
+  }
+}
+
 @media(max-height:700px){
-  .scene{justify-content:flex-start;padding-top:75px;padding-bottom:158px}
+  .scene{justify-content:flex-start}
   .tree{width:78px;margin-bottom:5px}
   .lede{margin-top:8px}
   .verse{margin-top:7px}
   .countdown{margin-top:14px}
+  .welcome-line{margin-top:12px;font-size:clamp(16px,4.5vw,20px);}
   .envelope{height:120px;margin-top:12px}
   .blessing{margin-top:10px;padding:10px 14px}
   .tabs button{padding:8px 12px}
@@ -464,33 +445,210 @@ textarea:focus{border-color:var(--line-strong)}
 <canvas id="fx" aria-hidden="true"></canvas>
 <nav class="tabs" aria-label="Chọn cảnh"><button type="button" data-scene="xmas" aria-pressed="true">Giáng sinh 2026</button><button type="button" data-scene="ny" aria-pressed="false">Năm mới 2027</button><button type="button" data-scene="tet" aria-pressed="false">Tết Đinh Mùi</button></nav>
 <main>
-<section class="scene is-active" id="scene-xmas" aria-label="Giáng sinh 2026"><svg class="tree" viewBox="0 0 120 150" aria-hidden="true"><defs><linearGradient id="leaf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9be7bf"/><stop offset="1" stop-color="#2d7356"/></linearGradient></defs><circle cx="60" cy="22" r="17" fill="#ffd27a" opacity=".18"/><path d="M60 7 38 42h13L28 68h20L18 98h32v25h20V98h32L72 68h20L69 42h13z" fill="url(#leaf)"/><rect x="52" y="120" width="16" height="19" rx="2" fill="#9a5b38"/><circle cx="44" cy="54" r="4" fill="#ffd27a"/><circle cx="72" cy="75" r="4" fill="#ff9a8a"/><circle cx="52" cy="96" r="4" fill="#ffd27a"/><circle cx="78" cy="44" r="3" fill="#fff4e2"/></svg><p class="eyebrow">Merry Christmas</p><h1 class="script">Giáng Sinh 2026</h1><p class="lede">Chúc bạn và gia đình một mùa Giáng sinh ấm áp, an lành và đầy yêu thương.</p><p class="verse">Vinh danh Thiên Chúa trên trời, bình an dưới thế cho người thiện tâm (Lc 2,14)</p><button type="button" class="ghost" id="skip">Bỏ qua, sang năm mới</button></section>
-<section class="scene" id="scene-ny" aria-label="Năm mới 2027" aria-hidden="true"><p class="eyebrow">Chúc mừng năm mới</p><h1 class="year">2027</h1><p class="lede">Năm mới an khang, thịnh vượng, vạn sự như ý.</p><div class="countdown" role="timer" aria-label="Thời gian còn lại đến năm 2027"><div><span id="cd-d">--</span><small>ngày</small></div><div><span id="cd-h">--</span><small>giờ</small></div><div><span id="cd-m">--</span><small>phút</small></div><div><span id="cd-s">--</span><small>giây</small></div></div><p class="cd-note" id="cd-note">Đếm ngược theo giờ Việt Nam (UTC+7)</p></section>
-<section class="scene" id="scene-tet" aria-label="Tết Đinh Mùi 2027" aria-hidden="true"><p class="eyebrow">Mừng Xuân Đinh Mùi 2027</p><h1 class="tet-title">Tết Đinh Mùi</h1><button type="button" class="envelope" id="envelope" aria-label="Hái lộc Thánh"><span class="flap" aria-hidden="true"></span><span class="env-top">Lì xì</span><span class="seal" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M10 2h4v6h6v4h-6v10h-4V12H4V8h6z" fill="#7a0f16"/></svg></span><span class="env-label">Hái lộc Thánh</span></button><p class="blessing" id="blessing" aria-live="polite"><span id="lt-text">Chạm vào phong lì xì để hái lộc Thánh đầu năm.</span><span class="lt-ref" id="lt-ref"></span></p><div class="countdown" role="timer" aria-label="Thời gian còn lại đến Tết Đinh Mùi"><div><span id="td-d">--</span><small>ngày</small></div><div><span id="td-h">--</span><small>giờ</small></div><div><span id="td-m">--</span><small>phút</small></div><div><span id="td-s">--</span><small>giây</small></div></div><p class="cd-note" id="td-note">Đếm ngược đến mùng 1 Tết, ngày 6/2/2027</p></section>
+<section class="scene is-active" id="scene-xmas" aria-label="Giáng sinh 2026">
+  <svg class="tree" viewBox="0 0 120 150" aria-hidden="true"><defs><linearGradient id="leaf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9be7bf"/><stop offset="1" stop-color="#2d7356"/></linearGradient></defs><circle cx="60" cy="22" r="17" fill="#ffd27a" opacity=".18"/><path d="M60 7 38 42h13L28 68h20L18 98h32v25h20V98h32L72 68h20L69 42h13z" fill="url(#leaf)"/><rect x="52" y="120" width="16" height="19" rx="2" fill="#9a5b38"/><circle cx="44" cy="54" r="4" fill="#ffd27a"/><circle cx="72" cy="75" r="4" fill="#ff9a8a"/><circle cx="52" cy="96" r="4" fill="#ffd27a"/><circle cx="78" cy="44" r="3" fill="#fff4e2"/></svg>
+  <p class="eyebrow">Merry Christmas</p>
+  <h1 class="script">Giáng Sinh 2026</h1>
+  <p class="lede">Chúc bạn và gia đình một mùa Giáng sinh ấm áp, an lành và đầy yêu thương.</p>
+  <p class="verse">Vinh danh Thiên Chúa trên trời, bình an dưới thế cho người thiện tâm (Lc 2,14)</p>
+  <p class="welcome-line">Cùng nhau đón chào mùa Giáng sinh an lành</p>
+</section>
+
+<section class="scene" id="scene-ny" aria-label="Năm mới 2027" aria-hidden="true">
+  <p class="eyebrow">Chúc mừng năm mới</p>
+  <h1 class="year">2027</h1>
+  <p class="lede">Năm mới an khang, thịnh vượng, vạn sự như ý.</p>
+  
+  <div class="countdown" role="timer" aria-label="Thời gian còn lại đến năm 2027">
+    <div><span id="cd-d">--</span><small>ngày</small></div>
+    <div><span id="cd-h">--</span><small>giờ</small></div>
+    <div><span id="cd-m">--</span><small>phút</small></div>
+    <div><span id="cd-s">--</span><small>giây</small></div>
+  </div>
+  
+  <p class="welcome-line">Cùng nhau đón chào Năm Mới 2027</p>
+</section>
+
+<section class="scene" id="scene-tet" aria-label="Tết Đinh Mùi 2027" aria-hidden="true">
+  <p class="eyebrow">Mừng Xuân Đinh Mùi 2027</p>
+  <h1 class="tet-title">Tết Đinh Mùi</h1>
+  
+  <button type="button" class="envelope" id="envelope" aria-label="Hái lộc Thánh"><span class="flap" aria-hidden="true"></span><span class="env-top">Lì xì</span><span class="seal" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M10 2h4v6h6v4h-6v10h-4V12H4V8h6z" fill="#7a0f16"/></svg></span><span class="env-label">Hái lộc Thánh</span></button>
+  <p class="blessing" id="blessing" aria-live="polite"><span id="lt-text">Chạm vào phong lì xì để hái lộc Thánh đầu năm.</span><span class="lt-ref" id="lt-ref"></span></p>
+  
+  <div class="countdown" role="timer" aria-label="Thời gian còn lại đến Tết Đinh Mùi">
+    <div><span id="td-d">--</span><small>ngày</small></div>
+    <div><span id="td-h">--</span><small>giờ</small></div>
+    <div><span id="td-m">--</span><small>phút</small></div>
+    <div><span id="td-s">--</span><small>giây</small></div>
+  </div>
+  
+  <p class="welcome-line">Cùng nhau đón chào Xuân Đinh Mùi 2027</p>
+</section>
 </main>
-<div class="bar" role="toolbar" aria-label="Tùy chọn hiệu ứng"><button type="button" id="btnSound" aria-pressed="false">♫ Âm thanh</button><button type="button" id="btnSnow" aria-pressed="true" data-scenes="xmas ny">Tuyết</button><button type="button" id="btnAuto" aria-pressed="true" data-scenes="ny tet">Pháo tự động</button><button type="button" id="btnWarm" aria-pressed="true" data-scenes="ny tet">Màu ấm</button><button type="button" id="btnPetals" aria-pressed="true" data-scenes="tet">Cánh hoa mai</button><button type="button" id="btnLantern">Thả đèn cầu may</button><button type="button" id="btnWish">Lời chúc</button></div>
-<section class="sheet" id="wishSheet" aria-labelledby="wishTitle" role="dialog" aria-modal="true" hidden><div class="sheet-card"><header class="sheet-head"><h2 id="wishTitle">Lời chúc năm mới</h2><button type="button" class="mini" id="wishClose">Đóng</button></header><form id="wishForm"><label for="wishInput">Gửi lời chúc của bạn</label><textarea id="wishInput" rows="3" maxlength="120" placeholder="Ví dụ: Năm mới bình an và hạnh phúc"></textarea><div class="form-row"><span id="wishCount">0/120</span><button type="submit" class="primary" id="wishSubmit">Gửi lời chúc</button></div></form><ul class="wish-list" id="wishList" aria-live="polite"></ul></div></section><div class="toast" id="toast" role="status" aria-live="polite"></div>
-<audio id="xmasMusic" src="noel.mp3" preload="metadata" loop playsinline></audio><audio id="tetMusic" src="tet.mp3" preload="metadata" loop playsinline></audio>
+
+<div class="bar" role="toolbar" aria-label="Tùy chọn hiệu ứng">
+  <button type="button" id="btnSound" aria-pressed="false">♫ Âm thanh</button>
+  <button type="button" id="btnSnow" aria-pressed="true" data-scenes="xmas ny">Tuyết</button>
+  <button type="button" id="btnAuto" aria-pressed="true" data-scenes="ny tet">Pháo tự động</button>
+  <button type="button" id="btnWarm" aria-pressed="true" data-scenes="ny tet">Màu ấm</button>
+  <button type="button" id="btnPetals" aria-pressed="true" data-scenes="tet">Cánh hoa mai</button>
+  <button type="button" id="btnLantern">Thả đèn cầu may</button>
+  <button type="button" id="btnWish">Lời chúc</button>
+</div>
+
+<section class="sheet" id="wishSheet" aria-labelledby="wishTitle" role="dialog" aria-modal="true" hidden>
+  <div class="sheet-card">
+    <header class="sheet-head">
+      <h2 id="wishTitle">Lời chúc gợi ý</h2>
+      <button type="button" class="mini" id="wishClose">Đóng</button>
+    </header>
+    
+    <div class="wish-tabs">
+      <button type="button" class="wish-tab" data-tab="xmas" aria-pressed="false">Giáng sinh</button>
+      <button type="button" class="wish-tab" data-tab="ny" aria-pressed="true">Năm mới & Tết</button>
+    </div>
+
+    <ul class="wish-list" id="wishList" aria-live="polite"></ul>
+  </div>
+</section>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<audio id="xmasMusic" src="noel.mp3" preload="metadata" loop playsinline></audio>
+<audio id="tetMusic" src="tet.mp3" preload="metadata" loop playsinline></audio>
+
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id),rand=(a,b)=>a+Math.random()*(b-a),pick=a=>a[Math.floor(Math.random()*a.length)],clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),pad2=n=>String(n).padStart(2,'0');
-const SUPABASE_URL='https://ffufhbskmviesczweqkg.supabase.co';const SUPABASE_KEY='sb_publishable_M4cDU1usByyG-N6twgbE0w_AI423Wov';const SB_ON=!!(SUPABASE_URL&&SUPABASE_KEY);const WISH_KEY='ny2027-wishes';
-const reduceMotion=!!(matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);let scene='xmas',soundOn=false,snowOn=true,autoOn=true,warmMode=true,petalsOn=true,introTimer=null,lastAuto=0,lastLantern=0,lastFrame=0,raf=0,audioCtx=null,musicTimer=null,musicStep=0;
+const reduceMotion=!!(matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
+let scene='xmas',soundOn=false,snowOn=true,autoOn=true,warmMode=true,petalsOn=true,introTimer=null,lastAuto=0,lastLantern=0,lastFrame=0,raf=0,audioCtx=null,musicTimer=null,musicStep=0;
+
 const canvas=$('fx'),g=canvas.getContext('2d');let W=innerWidth,H=innerHeight,DPR=1;const stars=[],flakes=[],petals=[],fireworks=[],lanterns=[];
-function resize(){DPR=Math.min(devicePixelRatio||1,1.75);W=innerWidth;H=innerHeight;canvas.width=Math.round(W*DPR);canvas.height=Math.round(H*DPR);canvas.style.width=W+'px';canvas.style.height=H+'px';g.setTransform(DPR,0,0,DPR,0,0);stars.length=flakes.length=petals.length=0;for(let i=0,n=clamp(Math.round(W*H/3300),45,115);i<n;i++)stars.push({x:Math.random()*W,y:Math.random()*H,r:rand(.4,1.4),p:rand(0,6.28)});for(let i=0,n=reduceMotion?30:clamp(Math.round(W/6),45,100);i<n;i++)flakes.push({x:Math.random()*W,y:Math.random()*H,r:rand(.7,2.3),v:rand(.35,1.15),p:rand(0,6.28)});for(let i=0,n=reduceMotion?8:clamp(Math.round(W/25),12,25);i<n;i++)petals.push({x:Math.random()*W,y:Math.random()*H,r:rand(3,6),v:rand(.5,1.2),p:rand(0,6.28),rot:rand(0,6.28)});}
-function burst(x,y){if(fireworks.length>500)fireworks.splice(0,fireworks.length-350);let count=reduceMotion?18:55;for(let i=0;i<count;i++){let a=Math.PI*2*i/count,s=rand(1.2,4.5);fireworks.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:1,h:rand(warmMode?12:0,warmMode?52:360),r:rand(1,2.5)});}}
+
+/* Đo chiều cao tabs và bar để scene không bị chồng lấn */
+function syncLayout(){
+  try{
+    const tabs=document.querySelector('.tabs'),bar=document.querySelector('.bar');
+    if(!tabs||!bar)return;
+    const th=Math.ceil(tabs.getBoundingClientRect().bottom);
+    const bh=Math.ceil(innerHeight-bar.getBoundingClientRect().top);
+    document.documentElement.style.setProperty('--tabs-h',th+'px');
+    document.documentElement.style.setProperty('--bar-h',bh+'px');
+  }catch(e){}
+}
+
+function resize(){
+  DPR=Math.min(devicePixelRatio||1,1.75);W=innerWidth;H=innerHeight;
+  canvas.width=Math.round(W*DPR);canvas.height=Math.round(H*DPR);
+  canvas.style.width=W+'px';canvas.style.height=H+'px';g.setTransform(DPR,0,0,DPR,0,0);
+  stars.length=flakes.length=petals.length=0;
+  for(let i=0,n=clamp(Math.round(W*H/3300),45,115);i<n;i++)stars.push({x:Math.random()*W,y:Math.random()*H,r:rand(.4,1.4),p:rand(0,6.28)});
+  for(let i=0,n=reduceMotion?30:clamp(Math.round(W/6),45,100);i<n;i++)flakes.push({x:Math.random()*W,y:Math.random()*H,r:rand(.7,2.3),v:rand(.35,1.15),p:rand(0,6.28)});
+  for(let i=0,n=reduceMotion?8:clamp(Math.round(W/25),12,25);i<n;i++)petals.push({x:Math.random()*W,y:Math.random()*H,r:rand(3,6),v:rand(.5,1.2),p:rand(0,6.28),rot:rand(0,6.28)});
+}
+
+function burst(x,y){
+  if(fireworks.length>500)fireworks.splice(0,fireworks.length-350);
+  let count=reduceMotion?18:55;
+  for(let i=0;i<count;i++){let a=Math.PI*2*i/count,s=rand(1.2,4.5);fireworks.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:1,h:rand(warmMode?12:0,warmMode?52:360),r:rand(1,2.5)});}
+}
 function spawnLantern(){if(lanterns.length<18)lanterns.push({x:rand(W*.15,W*.85),y:H+20,v:rand(.3,.6),p:rand(0,6.28),red:scene==='tet'});}
-function frame(t){if(document.hidden){raf=requestAnimationFrame(frame);return}if(!reduceMotion&&t-lastFrame<25){raf=requestAnimationFrame(frame);return}lastFrame=t;g.clearRect(0,0,W,H);g.fillStyle='#fff4e2';for(const s of stars){g.globalAlpha=reduceMotion?.55:.25+.55*(.5+.5*Math.sin(t*.001+s.p));g.beginPath();g.arc(s.x,s.y,s.r,0,Math.PI*2);g.fill()}g.globalAlpha=1;
-if(scene!=='tet'&&snowOn){g.fillStyle='#fff8ee';for(const f of flakes){f.y+=f.v;f.x+=Math.sin(t*.001+f.p)*.4;if(f.y>H+4){f.y=-4;f.x=Math.random()*W}g.globalAlpha=.55;g.beginPath();g.arc(f.x,f.y,f.r,0,Math.PI*2);g.fill()}g.globalAlpha=1}
-if(scene==='tet'&&petalsOn){for(const p of petals){p.y+=p.v;p.x+=Math.sin(t*.001+p.p)*.6;p.rot+=.012;if(p.y>H+10){p.y=-10;p.x=Math.random()*W}g.save();g.translate(p.x,p.y);g.rotate(p.rot);g.fillStyle='#ffd54a';for(let k=0;k<5;k++){g.rotate(Math.PI*2/5);g.beginPath();g.ellipse(0,p.r*.65,p.r*.42,p.r*.7,0,0,Math.PI*2);g.fill()}g.restore()}}
-if(scene!=='xmas'&&autoOn&&t-lastAuto>(reduceMotion?4000:1350+Math.random()*1200)){burst(rand(W*.15,W*.85),rand(H*.12,H*.48));lastAuto=t}if(scene==='tet'&&t-lastLantern>2600){spawnLantern();lastLantern=t}
-for(let i=fireworks.length-1;i>=0;i--){const p=fireworks[i];p.x+=p.vx;p.y+=p.vy;p.vy+=.035;p.vx*=.99;p.life-=.018;if(p.life<=0){fireworks.splice(i,1);continue}g.fillStyle=`hsla(${p.h},100%,70%,${p.life})`;g.beginPath();g.arc(p.x,p.y,p.r*p.life,0,Math.PI*2);g.fill()}
-for(let i=lanterns.length-1;i>=0;i--){const l=lanterns[i];l.y-=l.v;l.x+=Math.sin(t*.001+l.p)*.3;if(l.y< -30){lanterns.splice(i,1);continue}g.globalAlpha=.8;g.fillStyle=l.red?'#f45b48':'#ffb85c';g.beginPath();g.ellipse(l.x,l.y,8,12,0,0,Math.PI*2);g.fill();g.fillStyle='#ffe6a1';g.fillRect(l.x-4,l.y+10,8,2)}g.globalAlpha=1;raf=requestAnimationFrame(frame)}
+
+function frame(t){
+  if(document.hidden){raf=requestAnimationFrame(frame);return}
+  if(!reduceMotion&&t-lastFrame<25){raf=requestAnimationFrame(frame);return}
+  lastFrame=t;g.clearRect(0,0,W,H);
+  
+  // Stars
+  g.fillStyle='#fff4e2';
+  for(const s of stars){g.globalAlpha=reduceMotion?.55:.25+.55*(.5+.5*Math.sin(t*.001+s.p));g.beginPath();g.arc(s.x,s.y,s.r,0,Math.PI*2);g.fill()}
+  g.globalAlpha=1;
+  
+  // Snow
+  if(scene!=='tet'&&snowOn){
+    g.fillStyle='#fff8ee';
+    for(const f of flakes){f.y+=f.v;f.x+=Math.sin(t*.001+f.p)*.4;if(f.y>H+4){f.y=-4;f.x=Math.random()*W}g.globalAlpha=.55;g.beginPath();g.arc(f.x,f.y,f.r,0,Math.PI*2);g.fill()}
+    g.globalAlpha=1;
+  }
+  
+  // Petals
+  if(scene==='tet'&&petalsOn){
+    for(const p of petals){
+      p.y+=p.v;p.x+=Math.sin(t*.001+p.p)*.6;p.rot+=.012;
+      if(p.y>H+10){p.y=-10;p.x=Math.random()*W}
+      g.save();g.translate(p.x,p.y);g.rotate(p.rot);g.fillStyle='#ffd54a';
+      for(let k=0;k<5;k++){g.rotate(Math.PI*2/5);g.beginPath();g.ellipse(0,p.r*.65,p.r*.42,p.r*.7,0,0,Math.PI*2);g.fill()}
+      g.restore();
+    }
+  }
+  
+  // Auto fireworks
+  if(scene!=='xmas'&&autoOn&&t-lastAuto>(reduceMotion?4000:1350+Math.random()*1200)){
+    burst(rand(W*.15,W*.85),rand(H*.12,H*.48));lastAuto=t;
+  }
+  if(scene==='tet'&&t-lastLantern>2600){spawnLantern();lastLantern=t}
+  
+  // Draw fireworks
+  for(let i=fireworks.length-1;i>=0;i--){
+    const p=fireworks[i];p.x+=p.vx;p.y+=p.vy;p.vy+=.035;p.vx*=.99;p.life-=.018;
+    if(p.life<=0){fireworks.splice(i,1);continue}
+    g.fillStyle=`hsla(${p.h},100%,70%,${p.life})`;g.beginPath();g.arc(p.x,p.y,p.r*p.life,0,Math.PI*2);g.fill();
+  }
+  
+  // Draw lanterns
+  for(let i=lanterns.length-1;i>=0;i--){
+    const l=lanterns[i];l.y-=l.v;l.x+=Math.sin(t*.001+l.p)*.3;
+    if(l.y< -30){lanterns.splice(i,1);continue}
+    g.globalAlpha=.8;g.fillStyle=l.red?'#f45b48':'#ffb85c';g.beginPath();g.ellipse(l.x,l.y,8,12,0,0,Math.PI*2);g.fill();
+    g.fillStyle='#ffe6a1';g.fillRect(l.x-4,l.y+10,8,2);
+  }
+  g.globalAlpha=1;
+  raf=requestAnimationFrame(frame);
+}
+
 function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove('show'),2600)}
-const scenes={xmas:$('scene-xmas'),ny:$('scene-ny'),tet:$('scene-tet')};function updateBar(){document.querySelectorAll('.bar [data-scenes]').forEach(b=>b.hidden=!b.dataset.scenes.split(' ').includes(scene));$('btnSound').setAttribute('aria-pressed',String(soundOn))}
-function setScene(next){if(!scenes[next]||next===scene)return;scene=next;document.documentElement.dataset.scene=scene;for(const k in scenes){const active=k===scene;scenes[k].classList.toggle('is-active',active);scenes[k].setAttribute('aria-hidden',String(!active))}document.querySelectorAll('[data-scene]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.scene===scene)));updateBar();syncMusic();if(scene!=='xmas')burst(W/2,H*.25)}
+
+const scenes={xmas:$('scene-xmas'),ny:$('scene-ny'),tet:$('scene-tet')};
+function updateBar(){
+  document.querySelectorAll('.bar [data-scenes]').forEach(b=>b.hidden=!b.dataset.scenes.split(' ').includes(scene));
+  $('btnSound').setAttribute('aria-pressed',String(soundOn));
+  syncLayout();
+}
+function setScene(next){
+  if(!scenes[next]||next===scene)return;
+  scene=next;document.documentElement.dataset.scene=scene;
+  for(const k in scenes){const active=k===scene;scenes[k].classList.toggle('is-active',active);scenes[k].setAttribute('aria-hidden',String(!active))}
+  document.querySelectorAll('[data-scene]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.scene===scene)));
+  updateBar();syncMusic();if(scene!=='xmas')burst(W/2,H*.25);
+}
+
+/* Countdown */
+const countdowns=[
+  {at:Date.parse('2027-01-01T00:00:00+07:00'),ids:['cd-d','cd-h','cd-m','cd-s']}, 
+  {at:Date.parse('2027-02-06T00:00:00+07:00'),ids:['td-d','td-h','td-m','td-s']}
+];
+function updateCountdowns(){
+  const now=Date.now();
+  for(const c of countdowns){
+    let s=Math.max(0,Math.floor((c.at-now)/1000));
+    c.ids.forEach((id,i)=>{
+      $(id).textContent = i===0 ? String(Math.floor(s/86400)) : pad2(i===1 ? Math.floor(s%86400/3600) : i===2 ? Math.floor(s%3600/60) : s%60);
+    });
+  }
+}
+updateCountdowns();
+setInterval(updateCountdowns,1000);
+
 function ensureAudio(){try{if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();return true}catch(e){return false}}
-function tone(freq,duration=.5,vol=.04,delay=0){if(!audioCtx||!soundOn)return;const t=audioCtx.currentTime+delay,o=audioCtx.createOscillator(),gain=audioCtx.createGain();o.type='sine';o.frequency.value=freq;gain.gain.setValueAtTime(.0001,t);gain.gain.exponentialRampToValueAtTime(Math.max(.001,vol),t+.025);gain.gain.exponentialRampToValueAtTime(.0001,t+duration);o.connect(gain);gain.connect(audioCtx.destination);o.start(t);o.stop(t+duration+.04)}
+function tone(freq,duration=.5,vol=.04,delay=0){
+  if(!audioCtx||!soundOn)return;
+  const t=audioCtx.currentTime+delay,o=audioCtx.createOscillator(),gain=audioCtx.createGain();
+  o.type='sine';o.frequency.value=freq;
+  gain.gain.setValueAtTime(.0001,t);gain.gain.exponentialRampToValueAtTime(Math.max(.001,vol),t+.025);gain.gain.exponentialRampToValueAtTime(.0001,t+duration);
+  o.connect(gain);gain.connect(audioCtx.destination);o.start(t);o.stop(t+duration+.04);
+}
+
 const files={xmas:$('xmasMusic'),tet:$('tetMusic')};let activeFile=null;
 function currentFile(){return scene==='xmas'?files.xmas:files.tet}
 function pauseFiles(except=null){Object.values(files).forEach(a=>{if(a!==except)a.pause()})}
@@ -500,27 +658,158 @@ async function syncMusic(){
   if(a===activeFile&&!a.paused&&!a.ended){pauseFiles(a);clearInterval(musicTimer);musicTimer=null;return}
   pauseFiles(a);
   try{
-    a.volume=.72;
-    const result=a.play();
+    a.volume=.72;const result=a.play();
     if(result&&typeof result.then==='function')await result;
     if(!soundOn||currentFile()!==a){a.pause();return}
     activeFile=a;clearInterval(musicTimer);musicTimer=null;
   }catch(err){
     a.pause();activeFile=null;
     if(soundOn){toast('Không phát được MP3; đang dùng âm thanh dự phòng');startSynth()}
-    console.warn('Không phát được file nhạc:',a.currentSrc||a.src,err);
   }
 }
-function startSynth(){if(!soundOn||!ensureAudio())return;clearInterval(musicTimer);musicTimer=setInterval(()=>{if(!soundOn||currentFile()===activeFile&&!currentFile().paused)return;const scale=scene==='xmas'?[784,740,659,587,659,740,784,659]:[523,587,659,784,880,784,659,587];tone(scale[musicStep%scale.length],.38,.035);musicStep++},460)}
+function startSynth(){
+  if(!soundOn||!ensureAudio())return;
+  clearInterval(musicTimer);
+  musicTimer=setInterval(()=>{
+    if(!soundOn||currentFile()===activeFile&&!currentFile().paused)return;
+    const scale=scene==='xmas'?[784,740,659,587,659,740,784,659]:[523,587,659,784,880,784,659,587];
+    tone(scale[musicStep%scale.length],.38,.035);musicStep++;
+  },460);
+}
 function stopMusic(){soundOn=false;pauseFiles();activeFile=null;clearInterval(musicTimer);musicTimer=null;updateBar()}
-Object.values(files).forEach(a=>{a.addEventListener('error',()=>{if(soundOn&&a===currentFile()){activeFile=null;a.pause();startSynth();toast('MP3 không tải được; dùng nhạc dự phòng')}});a.addEventListener('ended',()=>{if(soundOn&&a===currentFile()&&!a.loop)syncMusic()})});
-$('btnSound').addEventListener('click',async()=>{if(!soundOn){if(!ensureAudio()){toast('iPhone chưa hỗ trợ phát âm thanh');return}soundOn=true;updateBar();tone(784,.25,.06);await syncMusic();if(soundOn)toast(currentFile()&&activeFile===currentFile()?'Đã bật nhạc':'Đã bật âm thanh dự phòng')}else{stopMusic();toast('Đã tắt âm thanh')}});
-for(const [id,key] of [['btnSnow','snowOn'],['btnAuto','autoOn'],['btnWarm','warmMode'],['btnPetals','petalsOn']])$(id).addEventListener('click',()=>{if(key==='snowOn')snowOn=!snowOn;if(key==='autoOn')autoOn=!autoOn;if(key==='warmMode')warmMode=!warmMode;if(key==='petalsOn')petalsOn=!petalsOn;$(id).setAttribute('aria-pressed',String(({snowOn,autoOn,warmMode,petalsOn})[key]))});
-$('btnLantern').addEventListener('click',()=>{spawnLantern();if(soundOn)tone(659,.35,.035);toast('Đèn cầu may đã được thả!')});document.querySelectorAll('[data-scene]').forEach(b=>b.addEventListener('click',()=>{clearTimeout(introTimer);setScene(b.dataset.scene)}));$('skip').addEventListener('click',()=>{clearTimeout(introTimer);setScene('ny')});introTimer=setTimeout(()=>setScene('ny'),9000);
-const LOC=[['Chúa là Đấng chăn dắt tôi, tôi không thiếu thốn gì.','Thánh vịnh 23,1'],['Hãy đến với Chúa, Người sẽ cho anh em được nghỉ ngơi.','Mt 11,28'],['Chúa để lại bình an cho anh em, không như thế gian ban tặng.','Ga 14,27'],['Mọi sự đều góp phần sinh lợi cho những ai yêu mến Chúa.','Rm 8,28'],['Ai trông cậy vào Chúa sẽ lấy lại sức mạnh.','Is 40,31'],['Mọi ân huệ tốt lành đều từ trên cao mà đến.','Gc 1,17'],['Phúc thay ai xây dựng hòa bình.','Mt 5,9'],['Hãy tìm trước hết Nước Thiên Chúa, mọi điều khác sẽ được thêm cho.','Mt 6,33']];let lastLoc=-1;$('envelope').addEventListener('click',()=>{let i;do{i=Math.floor(Math.random()*LOC.length)}while(i===lastLoc);lastLoc=i;$('envelope').classList.add('is-open');$('lt-text').textContent='“'+LOC[i][0]+'”';$('lt-ref').textContent=LOC[i][1]+' · diễn ý';$('blessing').animate([{opacity:.4,transform:'translateY(8px)'},{opacity:1,transform:'translateY(0)'}],{duration:450});burst(W/2,H*.55);if(soundOn){tone(880,.45,.04);tone(1046,.55,.035,.25)}});
-const countdowns=[{at:Date.parse('2027-01-01T00:00:00+07:00'),ids:['cd-d','cd-h','cd-m','cd-s'],note:$('cd-note'),done:'Năm mới 2027 đã đến. Chúc mừng năm mới!'}, {at:Date.parse('2027-02-06T00:00:00+07:00'),ids:['td-d','td-h','td-m','td-s'],note:$('td-note'),done:'Tết Đinh Mùi đã đến. Chúc mừng năm mới!'}];function updateCountdowns(){const now=Date.now();for(const c of countdowns){let s=Math.max(0,Math.floor((c.at-now)/1000));c.ids.forEach((id,i)=>{$(id).textContent=i===0?String(Math.floor(s/86400)):pad2(i===1?Math.floor(s%86400/3600):i===2?Math.floor(s%3600/60):s%60)});if(s===0)c.note.textContent=c.done}}updateCountdowns();setInterval(updateCountdowns,1000);
-const store={get(k,f){try{const v=localStorage.getItem(k);return v?JSON.parse(v):f}catch(e){return f}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};let remoteWishes=[],wishBusy=false;const sheet=$('wishSheet'),wishInput=$('wishInput');function countWish(){$('wishCount').textContent=wishInput.value.length+'/120'}function headers(extra={}){return Object.assign({apikey:SUPABASE_KEY,'Content-Type':'application/json'},extra)}async function sendWish(text){const r=await fetch(SUPABASE_URL+'/rest/v1/wishes',{method:'POST',headers:headers({Prefer:'return=minimal'}),body:JSON.stringify({text})});if(!r.ok)throw Error('HTTP '+r.status)}function renderWishes(){const ul=$('wishList');ul.textContent='';const list=[...remoteWishes,...store.get(WISH_KEY,[])].slice(0,50);if(!list.length){const li=document.createElement('li');li.className='empty';li.textContent='Chưa có lời chúc nào. Hãy là người đầu tiên gửi lời chúc!';ul.append(li);return}for(const text of list){const li=document.createElement('li'),span=document.createElement('span'),b=document.createElement('button');span.textContent=text;b.type='button';b.className='mini';b.textContent='Sao chép';b.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(text);toast('Đã sao chép lời chúc')}catch(e){toast('Không sao chép được; hãy chọn lời chúc để sao chép')}});li.append(span,b);ul.append(li)}}async function loadWishes(){renderWishes();if(!SB_ON)return;const pending=store.get(WISH_KEY,[]),left=[];for(const t of pending){try{await sendWish(t)}catch(e){left.push(t)}}store.set(WISH_KEY,left);try{const r=await fetch(SUPABASE_URL+'/rest/v1/wishes?select=text&order=created_at.desc&limit=50',{headers:headers(),signal:AbortSignal.timeout?AbortSignal.timeout(9000):undefined});if(!r.ok)throw Error('HTTP '+r.status);const rows=await r.json();remoteWishes=Array.isArray(rows)?rows.map(x=>String(x.text||'').slice(0,120)).filter(Boolean):[];renderWishes()}catch(e){toast('Chưa tải được lời chúc chung; đang hiển thị lời chúc đã lưu trên máy')}}function openWish(){sheet.hidden=false;countWish();loadWishes();setTimeout(()=>wishInput.focus(),80)}function closeWish(){sheet.hidden=true;$('btnWish').focus()}$('btnWish').addEventListener('click',openWish);$('wishClose').addEventListener('click',closeWish);sheet.addEventListener('click',e=>{if(e.target===sheet)closeWish()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!sheet.hidden)closeWish()});wishInput.addEventListener('input',countWish);$('wishForm').addEventListener('submit',async e=>{e.preventDefault();if(wishBusy)return;const value=wishInput.value.trim().slice(0,120);if(!value){toast('Hãy viết lời chúc trước khi gửi');wishInput.focus();return}wishBusy=true;$('wishSubmit').disabled=true;try{if(SB_ON){await sendWish(value);remoteWishes.unshift(value);toast('Lời chúc đã gửi lên danh sách chung')}else{throw Error('local-only')}}catch(err){const list=store.get(WISH_KEY,[]);list.unshift(value);store.set(WISH_KEY,list.slice(0,50));toast(SB_ON?'Chưa gửi được lên máy chủ; đã lưu trên thiết bị này':'Đã lưu lời chúc trên thiết bị này')}finally{wishInput.value='';countWish();wishBusy=false;$('wishSubmit').disabled=false;renderWishes();const el=document.createElement('div');el.className='wish-float';el.textContent=value;el.style.left=rand(Math.min(150,W*.2),Math.max(Math.min(150,W*.2),W-Math.min(150,W*.2)))+'px';document.body.append(el);setTimeout(()=>el.remove(),7100)}});
-let pointer=null;const uiSel='button,a,input,textarea,label,.bar,.tabs,.sheet';window.addEventListener('pointerdown',e=>{if(!e.isPrimary||e.target.closest(uiSel)){pointer=null;return}pointer={x:e.clientX,y:e.clientY}});window.addEventListener('pointerup',e=>{if(!pointer)return;const dx=e.clientX-pointer.x,dy=e.clientY-pointer.y;pointer=null;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.4){const order=['xmas','ny','tet'];setScene(order[(order.indexOf(scene)+(dx<0?1:2))%3]);clearTimeout(introTimer)}else if(Math.hypot(dx,dy)<12){burst(e.clientX,e.clientY)}});document.addEventListener('visibilitychange',()=>{if(document.hidden){pauseFiles();clearInterval(musicTimer);musicTimer=null}else if(soundOn)syncMusic()});window.addEventListener('resize',resize,{passive:true});window.addEventListener('orientationchange',()=>setTimeout(resize,150));document.documentElement.dataset.scene=scene;updateBar();resize();raf=requestAnimationFrame(frame);
+Object.values(files).forEach(a=>{
+  a.addEventListener('error',()=>{if(soundOn&&a===currentFile()){activeFile=null;a.pause();startSynth();toast('MP3 không tải được; dùng nhạc dự phòng')}});
+  a.addEventListener('ended',()=>{if(soundOn&&a===currentFile()&&!a.loop)syncMusic()});
+});
+
+$('btnSound').addEventListener('click',async()=>{
+  if(!soundOn){
+    if(!ensureAudio()){toast('iPhone chưa hỗ trợ phát âm thanh');return}
+    soundOn=true;updateBar();tone(784,.25,.06);await syncMusic();
+    if(soundOn)toast(currentFile()&&activeFile===currentFile()?'Đã bật nhạc':'Đã bật âm thanh dự phòng');
+  }else{stopMusic();toast('Đã tắt âm thanh')}
+});
+
+for(const [id,key] of [['btnSnow','snowOn'],['btnAuto','autoOn'],['btnWarm','warmMode'],['btnPetals','petalsOn']]){
+  $(id).addEventListener('click',()=>{
+    if(key==='snowOn')snowOn=!snowOn;if(key==='autoOn')autoOn=!autoOn;
+    if(key==='warmMode')warmMode=!warmMode;if(key==='petalsOn')petalsOn=!petalsOn;
+    $(id).setAttribute('aria-pressed',String(({snowOn,autoOn,warmMode,petalsOn})[key]));
+  });
+}
+
+$('btnLantern').addEventListener('click',()=>{spawnLantern();if(soundOn)tone(659,.35,.035);toast('Đèn cầu may đã được thả!')});
+
+document.querySelectorAll('[data-scene]').forEach(b=>b.addEventListener('click',()=>{clearTimeout(introTimer);setScene(b.dataset.scene)}));
+
+introTimer=setTimeout(()=>setScene('ny'),9000);
+
+const LOC=[
+  ['Chúa là Đấng chăn dắt tôi, tôi không thiếu thốn gì.','Thánh vịnh 23,1'],
+  ['Hãy đến với Chúa, Người sẽ cho anh em được nghỉ ngơi.','Mt 11,28'],
+  ['Chúa để lại bình an cho anh em, không như thế gian ban tặng.','Ga 14,27'],
+  ['Mọi sự đều góp phần sinh lợi cho những ai yêu mến Chúa.','Rm 8,28'],
+  ['Ai trông cậy vào Chúa sẽ lấy lại sức mạnh.','Is 40,31'],
+  ['Mọi ân huệ tốt lành đều từ trên cao mà đến.','Gc 1,17'],
+  ['Phúc thay ai xây dựng hòa bình.','Mt 5,9'],
+  ['Hãy tìm trước hết Nước Thiên Chúa, mọi điều khác sẽ được thêm cho.','Mt 6,33']
+];
+let lastLoc=-1;
+
+$('envelope').addEventListener('click',()=>{
+  let i;do{i=Math.floor(Math.random()*LOC.length)}while(i===lastLoc);lastLoc=i;
+  $('envelope').classList.add('is-open');
+  $('lt-text').textContent='“'+LOC[i][0]+'”';
+  $('lt-ref').textContent=LOC[i][1]+' · diễn ý';
+  const b=$('blessing');if(b&&typeof b.animate==='function'){try{b.animate([{opacity:.4,transform:'translateY(8px)'},{opacity:1,transform:'translateY(0)'}],{duration:450})}catch(e){}}
+  burst(W/2,H*.55);if(soundOn){tone(880,.45,.04);tone(1046,.55,.035,.25)}
+});
+
+/* ===== Lời chúc gợi ý ===== */
+const WISHES_XMAS = [
+  "Chúc mừng Giáng sinh! Cầu chúc cho bạn và gia đình một mùa Giáng sinh an lành, tràn đầy hồng ân Thiên Chúa và ấm áp yêu thương.",
+  "Noel về, kính chúc bạn một mùa lễ hội bình an. Nguyện xin Chúa ban muôn phước lành và che chở gia đình bạn trong năm mới.",
+  "Vinh danh Thiên Chúa trên trời, bình an dưới thế cho người thiện tâm. Chúc bạn một Giáng sinh thánh thiện và tràn đầy niềm vui.",
+  "Mừng Chúa Giáng Sinh! Chúc bạn luôn tràn ngập niềm vui, bình an và hạnh phúc trong tình yêu của Chúa.",
+  "Giáng sinh ấm áp, hồng ân tuôn đổ. Chúc bạn và gia đình một mùa Noel ý nghĩa, đong đầy yêu thương."
+];
+
+const WISHES_NY = [
+  "Xuân sang, kính chúc bạn và gia đình một năm mới an khang, thịnh vượng, vạn sự như ý, luôn tràn đầy hồng ân Thiên Chúa.",
+  "Chúc mừng năm mới! Nguyện xin Chúa ban cho bạn một năm mới bình an, sức khỏe dồi dào và mọi sự may mắn.",
+  "Cung chúc tân xuân! Chúc bạn năm mới phúc lộc song toàn, gia đình ấm êm, sự nghiệp thăng tiến.",
+  "Mừng Xuân Đinh Mùi! Kính chúc quý vị một năm mới tràn đầy niềm vui, bình an trong Chúa và hạnh phúc bên gia đình.",
+  "Năm mới đến, chúc bạn một khởi đầu mới trọn vẹn. Cầu mong bình an, may mắn và tình yêu thương luôn hiện diện trong cuộc sống của bạn.",
+  "Mùa xuân mang đến niềm hy vọng mới. Chúc bạn một năm mới an lành, luôn vững tin vào tình yêu và sự dẫn dắt của Chúa."
+];
+
+const sheet=$('wishSheet');
+
+function renderWishList(tab) {
+  const ul = $('wishList');
+  ul.textContent = '';
+  const list = tab === 'xmas' ? WISHES_XMAS : WISHES_NY;
+  for (const text of list) {
+    const li = document.createElement('li');
+    const span = document.createElement('span');
+    span.textContent = text;
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'mini';
+    b.textContent = 'Sao chép';
+    b.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(text);
+        toast('Đã sao chép lời chúc');
+      } catch (e) {
+        toast('Không sao chép được');
+      }
+    });
+    li.append(span, b);
+    ul.append(li);
+  }
+  document.querySelectorAll('.wish-tab').forEach(t => t.setAttribute('aria-pressed', String(t.dataset.tab === tab)));
+}
+
+function openWish() {
+  sheet.hidden = false;
+  const initialTab = scene === 'xmas' ? 'xmas' : 'ny';
+  renderWishList(initialTab);
+}
+
+function closeWish() {
+  sheet.hidden = true;
+  $('btnWish').focus();
+}
+
+$('btnWish').addEventListener('click', openWish);
+$('wishClose').addEventListener('click', closeWish);
+sheet.addEventListener('click', e => { if (e.target === sheet) closeWish(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !sheet.hidden) closeWish(); });
+
+document.querySelectorAll('.wish-tab').forEach(t => {
+  t.addEventListener('click', () => renderWishList(t.dataset.tab));
+});
+
+let pointer=null;const uiSel='button,a,input,textarea,label,.bar,.tabs,.sheet';
+window.addEventListener('pointerdown',e=>{if(!e.isPrimary||e.target.closest(uiSel)){pointer=null;return}pointer={x:e.clientX,y:e.clientY}});
+window.addEventListener('pointerup',e=>{
+  if(!pointer)return;
+  const dx=e.clientX-pointer.x,dy=e.clientY-pointer.y;pointer=null;
+  if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.4){
+    const order=['xmas','ny','tet'];
+    setScene(order[(order.indexOf(scene)+(dx<0?1:2))%3]);
+    clearTimeout(introTimer);
+  }else if(Math.hypot(dx,dy)<12){burst(e.clientX,e.clientY)}
+});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){pauseFiles();clearInterval(musicTimer);musicTimer=null}else if(soundOn)syncMusic()});
+window.addEventListener('resize',()=>{resize();syncLayout()},{passive:true});
+window.addEventListener('orientationchange',()=>setTimeout(()=>{resize();syncLayout()},150));
+
+document.documentElement.dataset.scene=scene;
+updateBar();resize();syncLayout();raf=requestAnimationFrame(frame);
+
+if(document.fonts&&document.fonts.ready){document.fonts.ready.then(()=>syncLayout()).catch(()=>{})}
 })();
 </script>
 </body>
