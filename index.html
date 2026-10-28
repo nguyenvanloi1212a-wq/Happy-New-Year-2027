@@ -28,6 +28,7 @@
   :root[data-scene="tet"] { --sky-a: #5e1218; --sky-b: #130508; --gold: #ffd977; --line: rgba(255, 200, 90, 0.36); }
 
   body, body * { margin: 0; padding: 0; box-sizing: border-box; }
+  [hidden] { display: none !important; }
   html, body {
     width: 100%; height: 100%;
     overflow: hidden;
@@ -562,7 +563,7 @@
   <button type="button" id="btnAuto" aria-pressed="true" data-scenes="ny tet">Pháo tự động</button>
   <button type="button" id="btnWarm" aria-pressed="true" data-scenes="ny tet">Màu ấm</button>
   <button type="button" id="btnPetals" aria-pressed="true" data-scenes="tet">Cánh hoa mai</button>
-  <button type="button" id="btnBell" data-scenes="xmas">Chuông nhà thờ</button>
+
   <button type="button" id="btnLantern">Thả đèn cầu may</button>
   <button type="button" id="btnWish">Lời chúc</button>
 </div>
@@ -587,6 +588,8 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<audio id="xmasMusic" src="noel.mp3" preload="auto" loop></audio>
+<audio id="tetMusic" src="tet.mp3" preload="auto" loop></audio>
 <script>
 (() => {
   'use strict';
@@ -656,7 +659,7 @@
   };
   const SONG_XMAS = {
     name: 'Thánh ca Giáng sinh',
-    bpm: 66, bell: true,
+    bpm: 66,
     bars: [
       { notes: [[74, 2], [71, 1], [67, 1]], chord: 'G' },
       { notes: [[69, 2], [71, 1], [72, 1]], chord: 'Am' },
@@ -670,7 +673,7 @@
   };
   const SONG_TET = {
     name: 'Nhạc mừng xuân',
-    bpm: 92, bell: false,
+    bpm: 92,
     bars: [
       { notes: [[76, 1], [79, 1], [81, 2]], chord: 'C' },
       { notes: [[79, 2], [76, 1], [74, 1]], chord: 'G' },
@@ -877,19 +880,31 @@
     tone(freq, audioCtx.currentTime + (when || 0), dur, vol, type, 0.02);
   }
 
-  // Chuông nhà thờ: nhiều bồi âm, ngân dài
-  function bellAt(t, scale) {
-    [[1, 0.26], [2.01, 0.14], [2.76, 0.1], [3.9, 0.07], [5.4, 0.04]]
-      .forEach(([ratio, vol]) => tone(392 * ratio, t, 4.2, vol * scale, 'sine', 0.005));
-  }
-  function playBell() {
-    if (!soundOn || !audioCtx) { toast('Bật âm thanh để nghe chuông'); return; }
-    bellAt(audioCtx.currentTime, 1);
-    toast('Chuông nhà thờ đang ngân vang');
-  }
 
   // Trình phát nhạc: đặt trước từng ô nhịp để nhạc đều, không bị ngắt
   const music = { timer: null, song: null, barIdx: 0, nextTime: 0 };
+
+  // Nhạc từ file mp3 cùng thư mục: noel.mp3 cho Giáng sinh, tet.mp3 cho Tết.
+  // Nếu file không tải được thì dùng giai điệu tự tạo.
+  const fileMusic = { xmas: { el: $('xmasMusic'), ok: false }, tet: { el: $('tetMusic'), ok: false } };
+  for (const key of Object.keys(fileMusic)) {
+    const m = fileMusic[key];
+    m.el.addEventListener('canplay', () => { m.ok = true; syncFileMusic(); });
+    m.el.addEventListener('error', () => { m.ok = false; });
+  }
+  function useFileMusic() { return !!(fileMusic[scene] && fileMusic[scene].ok); }
+  function syncFileMusic() {
+    for (const key of Object.keys(fileMusic)) {
+      const m = fileMusic[key];
+      if (!m.ok) continue;
+      if (soundOn && scene === key) {
+        const p = m.el.play();
+        if (p && p.catch) p.catch(() => {});
+      } else {
+        m.el.pause();
+      }
+    }
+  }
 
   function currentSong() {
     return scene === 'xmas' ? SONG_XMAS : SONG_TET;
@@ -907,11 +922,12 @@
     }
     for (const m of chord.pad) tone(midiHz(m), t0, barDur, 0.022, 'sine', 0.8);
     tone(midiHz(chord.bass), t0, barDur, 0.05, 'sine', 0.3);
-    if (song.bell && bi === 0) bellAt(t0, 0.5);
+
   }
 
   function scheduleMusic() {
     if (!soundOn || !audioCtx) return;
+    if (useFileMusic()) { music.song = null; return; }
     const song = currentSong();
     if (song !== music.song) {
       music.song = song;
@@ -934,11 +950,13 @@
     clearInterval(music.timer);
     music.timer = setInterval(scheduleMusic, 120);
     scheduleMusic();
+    syncFileMusic();
   }
   function stopMusic() {
     clearInterval(music.timer);
     music.timer = null;
     music.song = null;
+    Object.values(fileMusic).forEach((m) => m.el.pause());
   }
 
   // ==================== PHÁO HOA, TIA SÁNG, ĐÈN TRỜI ====================
@@ -1154,6 +1172,7 @@
     }
     for (const b of tabs) b.setAttribute('aria-pressed', String(b.dataset.scene === name));
     updateBar();
+    syncFileMusic();
     if (name === 'ny' || name === 'tet') celebrate();
   }
 
@@ -1267,7 +1286,7 @@
     $('btnPetals').setAttribute('aria-pressed', String(petalsOn));
   });
 
-  $('btnBell').addEventListener('click', playBell);
+
 
   $('btnLantern').addEventListener('click', () => {
     spawnLantern();
