@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Happy New Year 2027</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Mountains+of+Christmas:wght@400;700&display=swap">
 <style>
@@ -593,6 +598,11 @@
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const pad2 = (n) => String(n).padStart(2, '0');
   const midiHz = (m) => 440 * Math.pow(2, (m - 69) / 12);
+  // Cấu hình Supabase để lời chúc dùng chung giữa mọi người.
+  // Điền URL dự án và khóa anon/public. Để trống thì lời chúc chỉ lưu trên thiết bị này.
+  const SUPABASE_URL = 'https://ffufhbskmviesczweqkg.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_M4cDU1usByyG-N6twgbE0w_AI423Wov';
+  const SB_ON = !!(SUPABASE_URL && SUPABASE_KEY);
   const WISH_KEY = 'ny2027-wishes';
   const reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
@@ -1355,9 +1365,42 @@
       .catch(() => toast('Không sao chép được. Hãy chọn và sao chép thủ công'));
   }
 
+  // Lời chúc lấy từ máy chủ dùng chung (Supabase), nếu đã cấu hình
+  let remoteWishes = [];
+
+  function sbHeaders(extra) {
+    return Object.assign({ apikey: SUPABASE_KEY, 'Content-Type': 'application/json' }, extra || {});
+  }
+
+  async function sendWish(text) {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/wishes', {
+      method: 'POST',
+      headers: sbHeaders({ Prefer: 'return=minimal' }),
+      body: JSON.stringify({ text: text }),
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+  }
+
+  // Gửi lại các lời chúc còn kẹt trên máy, rồi tải danh sách mới nhất từ máy chủ
+  async function loadWishes() {
+    if (!SB_ON) return;
+    const left = [];
+    for (const t of store.get(WISH_KEY, [])) {
+      try { await sendWish(t); remoteWishes.unshift(t); } catch (err) { left.push(t); }
+    }
+    store.set(WISH_KEY, left);
+    try {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/wishes?select=text&order=created_at.desc&limit=50', { headers: sbHeaders() });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const rows = await res.json();
+      remoteWishes = rows.map((r) => r.text);
+    } catch (err) { /* giữ danh sách đang có */ }
+    renderWishes();
+  }
+
   function renderWishes() {
     const ul = $('wishList');
-    const list = store.get(WISH_KEY, []);
+    const list = remoteWishes.concat(store.get(WISH_KEY, []));
     ul.textContent = '';
     if (!list.length) {
       const li = document.createElement('li');
@@ -1394,6 +1437,7 @@
     sheet.hidden = false;
     updateWishCount();
     renderWishes();
+    loadWishes();
     setTimeout(() => wishInput.focus(), 50);
   }
   function closeWish() {
@@ -1408,7 +1452,7 @@
   });
   wishInput.addEventListener('input', updateWishCount);
 
-  $('wishForm').addEventListener('submit', (e) => {
+  $('wishForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const text = wishInput.value.trim();
     if (!text) {
@@ -1416,20 +1460,29 @@
       toast('Hãy viết lời chúc trước khi gửi');
       return;
     }
-    const list = store.get(WISH_KEY, []);
-    list.unshift(text);
-    store.set(WISH_KEY, list.slice(0, 50));
     wishInput.value = '';
     updateWishCount();
-    renderWishes();
     floatWish(text);
-    toast('Lời chúc đã được gửi');
+
+    let saved = false;
+    if (SB_ON) {
+      try { await sendWish(text); remoteWishes.unshift(text); saved = true; } catch (err) { saved = false; }
+    }
+    if (!saved) {
+      const list = store.get(WISH_KEY, []);
+      list.unshift(text);
+      store.set(WISH_KEY, list.slice(0, 50));
+    }
+    renderWishes();
+    if (saved || !SB_ON) toast('Lời chúc đã được gửi');
+    else toast('Chưa gửi được lên máy chủ, lời chúc đã lưu trên thiết bị này');
   });
 
   // ==================== ĐẾM NGƯỢC ====================
+  // Mốc cố định theo giờ Việt Nam (UTC+7) để mọi người thấy cùng một thời điểm
   const COUNTDOWNS = [
-    { at: new Date(2027, 0, 1), ids: ['cd-d', 'cd-h', 'cd-m', 'cd-s'], note: $('cd-note'), done: 'Năm mới 2027 đã đến. Chúc mừng năm mới!' },
-    { at: new Date(2027, 1, 6), ids: ['td-d', 'td-h', 'td-m', 'td-s'], note: $('td-note'), done: 'Tết Đinh Mùi đã đến. Chúc mừng năm mới!' },
+    { at: new Date('2027-01-01T00:00:00+07:00'), ids: ['cd-d', 'cd-h', 'cd-m', 'cd-s'], note: $('cd-note'), done: 'Năm mới 2027 đã đến. Chúc mừng năm mới!' },
+    { at: new Date('2027-02-06T00:00:00+07:00'), ids: ['td-d', 'td-h', 'td-m', 'td-s'], note: $('td-note'), done: 'Tết Đinh Mùi đã đến. Chúc mừng năm mới!' },
   ];
   function updateCountdowns() {
     const now = Date.now();
@@ -1490,3 +1543,6 @@
   requestAnimationFrame(frame);
 })();
 </script>
+
+</body>
+</html>
