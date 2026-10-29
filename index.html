@@ -8,7 +8,7 @@
 <title>Happy New Year 2027</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,700&family=Mountains+of+Christmas:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Mountains+of+Christmas:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --sky-a:#2b1a3d;
@@ -62,7 +62,7 @@ button{
   cursor:pointer;
   touch-action:manipulation;
   -webkit-tap-highlight-color:transparent;
-  transition:transform .2s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease;
+  transition:transform .2s ease,background .25s ease,border-color .25s ease,box-shadow .25s ease,opacity .25s ease,color .25s ease;
 }
 button:active{transform:translateY(0)}
 button:focus-visible,textarea:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
@@ -70,6 +70,13 @@ button[aria-pressed="true"]{
   background:rgba(255,210,122,.18);
   border-color:var(--gold);
   box-shadow:0 0 0 3px rgba(255,210,122,.1), 0 4px 18px rgba(255,180,80,.15);
+}
+
+/* Icon nét mảnh, dùng chung qua <use> */
+.ico{
+  width:18px;height:18px;flex:none;
+  fill:none;stroke:currentColor;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round;overflow:visible;
 }
 
 #fx{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;}
@@ -81,15 +88,20 @@ button[aria-pressed="true"]{
   padding:max(12px,env(safe-area-inset-top)) var(--gr) 10px var(--gl);
 }
 .tabs button{
+  display:inline-flex;align-items:center;gap:7px;
   background:rgba(20,12,24,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  border:1px solid rgba(255,255,255,.08);padding:10px 16px;font-size:12px;letter-spacing:.3px;color:rgba(255,244,226,.85);
+  border:1px solid rgba(255,255,255,.08);
+  padding:9px 15px 9px 12px;font-size:12px;letter-spacing:.3px;color:rgba(255,244,226,.85);
 }
+.tabs .ico{width:15px;height:15px;color:var(--gold)}
 .tabs button[aria-pressed="true"]{
   background:linear-gradient(135deg,rgba(255,210,122,.25),rgba(255,122,154,.14));
-  border-color:rgba(255,210,122,.7);color:#ffe9b0;box-shadow:0 0 22px rgba(255,210,122,.22), inset 0 0 14px rgba(255,210,122,.08);
+  border-color:rgba(255,210,122,.7);color:#ffe9b0;
+  box-shadow:0 0 22px rgba(255,210,122,.22), inset 0 0 14px rgba(255,210,122,.08);
 }
+.tabs button[aria-pressed="true"] .ico{color:#fff0c4}
 
-/* ===== Scene (Sửa lỗi cuộn trên iPhone) ===== */
+/* ===== Scene ===== */
 .scene{
   position:absolute;inset:0;z-index:1;
   display:flex;flex-direction:column;text-align:center;
@@ -114,7 +126,7 @@ button[aria-pressed="true"]{
 .eyebrow::after{background:linear-gradient(90deg,var(--gold),transparent)}
 
 .script{
-  display: inline-block;font:700 clamp(44px,13vw,92px)/1.2 var(--script);letter-spacing: 1px;padding: 0.1em 0 0.2em;margin-top:10px;
+  display:inline-block;font:700 clamp(44px,13vw,92px)/1.2 var(--script);letter-spacing:1px;padding:0.1em 0 0.2em;margin-top:10px;
   background:linear-gradient(90deg,#ffe9b0 0%,#ffd27a 22%,#ff9a8a 50%,#ffd27a 78%,#ffe9b0 100%);
   background-size:200% 100%;background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
   filter:drop-shadow(0 0 24px rgba(255,190,110,.45));animation:shimmer 6s ease-in-out infinite;
@@ -122,24 +134,62 @@ button[aria-pressed="true"]{
 @keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
 .year{
-  display: inline-block;font:700 clamp(90px,30vw,205px)/1.1 var(--serif);padding: 0.1em 0;letter-spacing:2px;
+  display:inline-block;font:700 clamp(90px,30vw,205px)/1.1 var(--serif);padding:0.1em 0;letter-spacing:2px;
   background:linear-gradient(100deg,#ffd27a 0%,#ff9a5a 30%,#ff7a9a 50%,#ff9a5a 70%,#ffd27a 100%);
   background-size:200% 100%;background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
   filter:drop-shadow(0 0 24px rgba(255,150,90,.4));animation:shimmer 5s ease-in-out infinite;
 }
 
 .tet-title{
-  display: inline-block;font:700 clamp(42px,11vw,88px)/1.2 var(--serif);padding: 0.1em 0;margin-top:10px;
+  display:inline-block;font:700 clamp(42px,11vw,88px)/1.2 var(--serif);padding:0.1em 0;margin-top:10px;
   background:linear-gradient(100deg,#ffe9a8 0%,#ffc857 30%,#ff7a5a 55%,#ffc857 80%,#ffe9a8 100%);
   background-size:200% 100%;background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
   filter:drop-shadow(0 0 20px rgba(255,150,80,.35));animation:shimmer 5s ease-in-out infinite;
 }
 
-.lede,.verse{max-width:31ch;margin-top:14px;font:500 clamp(18px,4.8vw,22px)/1.45 var(--serif);color:var(--muted);text-wrap:balance}
-.verse{font-size:clamp(15px,4vw,18px);font-style:italic;color:var(--gold);opacity:.9}
+.lede{max-width:33ch;margin-top:14px;font:500 clamp(18px,4.8vw,21px)/1.5 var(--serif);color:var(--muted);text-wrap:balance}
 
-/* ===== Countdown ===== */
-.countdown{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;width:min(100%,360px);margin-top:24px}
+/* Ornament chia đoạn */
+.divider{display:flex;align-items:center;gap:10px;margin-top:16px;color:var(--gold)}
+.divider i{width:52px;height:1px;background:linear-gradient(90deg,transparent,var(--gold));opacity:.8}
+.divider i:last-child{background:linear-gradient(90deg,var(--gold),transparent)}
+.divider .ico{width:16px;height:16px}
+
+/* Khung câu Tin Mừng */
+.scripture{
+  position:relative;margin-top:18px;max-width:330px;padding:20px 22px 16px;
+  border:1px solid var(--line);border-radius:20px;
+  background:linear-gradient(180deg,rgba(255,210,122,.08),rgba(30,16,40,.6));
+  box-shadow:0 14px 34px rgba(0,0,0,.36),inset 0 1px 0 rgba(255,255,255,.07);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+}
+.scripture::before{
+  content:'';position:absolute;top:-6px;left:50%;width:11px;height:11px;margin-left:-5.5px;
+  background:#22122e;border-top:1px solid var(--line);border-left:1px solid var(--line);transform:rotate(45deg);
+}
+.scripture blockquote{
+  font:italic 600 clamp(18px,4.8vw,20px)/1.5 var(--serif);color:#ffe9b0;text-wrap:balance;
+}
+.scripture figcaption{
+  margin-top:12px;font:700 10.5px/1.4 var(--ui);letter-spacing:1.6px;text-transform:uppercase;color:var(--gold);opacity:.85;
+}
+
+.welcome-line{
+  margin-top:20px;font:700 clamp(18px,5vw,24px)/1.4 var(--serif);color:var(--gold);letter-spacing:1px;
+  text-shadow:0 0 20px rgba(255,210,122,.5);animation:pulseGlow 3s ease-in-out infinite;
+}
+@keyframes pulseGlow{0%,100%{opacity:.8;text-shadow:0 0 15px rgba(255,210,122,.4)}50%{opacity:1;text-shadow:0 0 28px rgba(255,210,122,.8)}}
+
+.tree{width:clamp(95px,25vw,130px);height:auto;margin-bottom:8px;filter:drop-shadow(0 0 18px rgba(255,210,122,.4));animation:treeGlow 4s ease-in-out infinite}
+@keyframes treeGlow{0%,100%{filter:drop-shadow(0 0 18px rgba(255,210,122,.4))}50%{filter:drop-shadow(0 0 30px rgba(255,210,122,.7))}}
+
+/* ===== Countdown + khung khi đếm xong ===== */
+.cd{width:min(100%,360px);margin-top:22px}
+.cd-cap{
+  font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:10px;opacity:.9;
+}
+.countdown{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
 .countdown>div{
   position:relative;padding:12px 4px;border:1px solid var(--line);border-radius:14px;
   background:linear-gradient(180deg,rgba(40,22,48,.92),rgba(18,9,24,.92));
@@ -150,49 +200,83 @@ button[aria-pressed="true"]{
 .countdown span{display:block;font:700 clamp(25px,7vw,36px)/1.2 var(--serif);font-variant-numeric:tabular-nums;color:var(--gold);text-shadow:0 0 18px rgba(255,210,122,.35)}
 .countdown small{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:600}
 
-.welcome-line {
-  margin-top: 20px;font: 700 clamp(18px, 5vw, 24px)/1.4 var(--serif);color: var(--gold);letter-spacing: 1px;
-  text-shadow: 0 0 20px rgba(255, 210, 122, 0.5);animation: pulseGlow 3s ease-in-out infinite;
+.done{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  padding:18px 16px;border:1px solid var(--line-strong);border-radius:18px;
+  background:linear-gradient(180deg,rgba(70,34,40,.72),rgba(18,9,24,.94));
+  box-shadow:0 10px 30px rgba(0,0,0,.4),0 0 34px rgba(255,210,122,.16);
+  animation:doneIn .8s cubic-bezier(.2,.9,.25,1);
 }
-@keyframes pulseGlow {0%, 100% { opacity: 0.8; text-shadow: 0 0 15px rgba(255, 210, 122, 0.4); }50% { opacity: 1; text-shadow: 0 0 28px rgba(255, 210, 122, 0.8); }}
+.done .ico{width:30px;height:30px;color:var(--gold);animation:twinkle 2.4s ease-in-out infinite}
+.done strong{font:700 clamp(25px,7vw,34px)/1.15 var(--serif);color:var(--gold);text-shadow:0 0 18px rgba(255,210,122,.35)}
+.done span{font-size:14px;color:var(--muted);line-height:1.45}
+@keyframes doneIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes twinkle{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.15) rotate(14deg)}}
 
-.tree{width:clamp(95px,25vw,135px);height:auto;margin-bottom:10px;filter:drop-shadow(0 0 18px rgba(255,210,122,.4));animation:treeGlow 4s ease-in-out infinite}
-@keyframes treeGlow{0%,100%{filter:drop-shadow(0 0 18px rgba(255,210,122,.4))}50%{filter:drop-shadow(0 0 30px rgba(255,210,122,.7))}}
-
-/* ===== Envelope ===== */
+/* ===== Phong lì xì ===== */
 .envelope{
-  position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;margin-top:20px;
-  width:min(72vw,250px);height:145px;border-radius:16px;border:1px solid #f2c46d;
-  background:repeating-linear-gradient(45deg,rgba(255,210,122,.05) 0,rgba(255,210,122,.05) 6px,transparent 6px,transparent 14px),radial-gradient(ellipse at 50% 0%,#e04a4f,#b82228 45%,#7a0f16);
-  color:#ffe29a;box-shadow:0 14px 34px rgba(0,0,0,.45),inset 0 0 0 4px rgba(255,210,122,.14),0 0 30px rgba(255,210,122,.18);overflow:hidden;transition:transform .3s ease,box-shadow .3s ease;
+  position:relative;display:block;width:min(72vw,250px);height:145px;margin-top:20px;
+  padding:0;border:0;border-radius:16px;background:none;box-shadow:none;
+  cursor:pointer;
 }
-.envelope:active{transform:translateY(-1px)}
-.flap{position:absolute;left:0;right:0;top:0;height:52%;background:linear-gradient(#a51d24,#8a1319);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:50% 0;z-index:0}
+.env-body{
+  position:absolute;inset:0;border-radius:16px;border:1px solid #f2c46d;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  background:
+    repeating-linear-gradient(45deg,rgba(255,210,122,.05) 0,rgba(255,210,122,.05) 6px,transparent 6px,transparent 14px),
+    radial-gradient(ellipse at 50% 0%,#e04a4f,#b82228 45%,#7a0f16);
+  color:#ffe29a;
+  box-shadow:0 14px 34px rgba(0,0,0,.45),inset 0 0 0 4px rgba(255,210,122,.14),0 0 30px rgba(255,210,122,.18);
+  transition:transform .3s ease,box-shadow .3s ease;
+}
+/* Nắp phong bì: lật lên trên khi mở, không bị cắt */
+.flap{
+  position:absolute;left:0;right:0;top:0;height:52%;z-index:0;
+  background:linear-gradient(#b82a30,#8a1319);
+  border-radius:16px 16px 0 0;
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  transform-origin:50% 0;
+  transition:transform .8s cubic-bezier(.2,.8,.2,1);
+}
 .env-top,.seal,.env-label{position:relative;z-index:1}
-.env-top{font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(255,226,154,.85)}
-.seal{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#fff0bd,#e9b24f 55%,#b97a1f);box-shadow:0 0 20px rgba(255,210,122,.65), inset 0 -2px 6px rgba(120,60,10,.35);transition:transform .5s cubic-bezier(.34,1.56,.64,1)}
+.env-top{font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(255,226,154,.9)}
+.seal{
+  width:50px;height:50px;border-radius:50%;display:grid;place-items:center;
+  background:radial-gradient(circle at 35% 30%,#fff0bd,#e9b24f 55%,#b97a1f);
+  box-shadow:0 0 20px rgba(255,210,122,.65),inset 0 -2px 6px rgba(120,60,10,.35);
+  transition:transform .5s cubic-bezier(.34,1.56,.64,1);
+}
 .seal svg{width:24px;height:24px}
 .env-label{font-size:15px;font-weight:800;letter-spacing:.5px}
-.envelope.is-open .flap{animation:flapOpen .7s ease both}
-.envelope.is-open .seal{transform:translateY(-9px) scale(1.15)}
-@keyframes flapOpen{to{transform:rotateX(-165deg)}}
+.envelope.is-open .flap{transform:rotateX(-115deg)}
+.envelope.is-open .seal{transform:translateY(-4px) scale(1.12)}
 
 .blessing{
   display:block;margin-top:16px;padding:16px 20px;max-width:32ch;min-height:3.5em;border:1px solid var(--line);border-radius:16px;
   background:linear-gradient(180deg,rgba(40,22,48,.9),rgba(18,9,24,.9));box-shadow:0 10px 30px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.05);
   font:600 italic clamp(18px,5vw,23px)/1.4 var(--serif);color:var(--gold);position:relative;
 }
+.blessing.long{font-size:clamp(15px,4.2vw,19px);line-height:1.5}
 .lt-ref{display:block;margin-top:8px;font:600 11px var(--ui);letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);opacity:.85}
 
-/* ===== Bottom bar ===== */
+/* ===== Thanh chức năng dưới ===== */
 .bar{
-  position:absolute;left:0;right:0;bottom:0;z-index:12;display:flex;flex-wrap:wrap;justify-content:center;gap:6px;
-  padding:26px var(--gr) max(14px,env(safe-area-inset-bottom)) var(--gl);
-  background:linear-gradient(to top,rgba(7,5,11,.97) 22%,rgba(7,5,11,.72) 60%,transparent);
+  position:absolute;left:0;right:0;bottom:0;z-index:12;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;
+  padding:28px var(--gr) max(14px,env(safe-area-inset-bottom)) var(--gl);
+  background:linear-gradient(to top,rgba(7,5,11,.97) 24%,rgba(7,5,11,.7) 62%,transparent);
 }
-.bar button{font-size:12px;padding:9px 12px;background:rgba(28,16,34,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.bar button{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;padding:8px 13px 8px 10px;
+  background:rgba(28,16,34,.75);border-color:rgba(255,210,122,.18);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.bar button .ico{width:16px;height:16px;color:var(--gold)}
+.bar button[aria-pressed="false"] .ico{opacity:.55}
+.bar button[aria-pressed="true"] .ico{color:#ffe9b0}
+#soundLabel,#lanternLabel{white-space:nowrap}
 
-/* ===== Sheet & Tabs ===== */
+/* ===== Sheet lời chúc ===== */
 .sheet{position:absolute;inset:0;z-index:30;display:flex;align-items:flex-end;justify-content:center;background:rgba(7,5,11,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding-top:env(safe-area-inset-top);animation:sheetIn .3s ease}
 @keyframes sheetIn{from{opacity:0}to{opacity:1}}
 .sheet-card{
@@ -203,17 +287,34 @@ button[aria-pressed="true"]{
 }
 @keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .sheet-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
-.sheet-head h2{font:700 24px var(--serif);color:var(--gold)}
+.sheet-head h2{display:flex;align-items:center;gap:9px;font:700 24px var(--serif);color:var(--gold)}
+.sheet-head h2 .ico{width:22px;height:22px}
 
-.wish-tabs {display: flex;gap: 6px;margin-bottom: 14px;}
-.wish-tab {flex: 1;padding: 8px 4px;font-size: 12px;background: rgba(255, 210, 122, 0.05);border: 1px solid rgba(255, 210, 122, 0.2);color: var(--muted)}
-.wish-tab[aria-pressed="true"] {background: rgba(255, 210, 122, 0.18);border-color: var(--gold);color: #ffe9b0;box-shadow: 0 0 15px rgba(255, 210, 122, 0.15);}
+.wish-tabs{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.wish-tabs::-webkit-scrollbar{display:none}
+.wish-tab{flex:1 0 auto;padding:8px 10px;font-size:12px;white-space:nowrap;background:rgba(255,210,122,.05);border:1px solid rgba(255,210,122,.2);color:var(--muted)}
+.wish-tab[aria-pressed="true"]{background:rgba(255,210,122,.18);border-color:var(--gold);color:#ffe9b0;box-shadow:0 0 15px rgba(255,210,122,.15)}
 
 .mini{padding:6px 11px;font-size:12px;flex:none}
+.sent-cap{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);opacity:.9;margin-bottom:2px}
 .wish-list{list-style:none;display:grid;gap:10px;margin-top:16px}
 .wish-list li{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:14px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(135deg,rgba(255,210,122,.06),rgba(255,210,122,.015));text-align:left;font-size:14px;line-height:1.5;transition:border-color .2s ease,background .2s ease}
 .wish-list li span{min-width:0;overflow-wrap:anywhere;flex:1;padding-top:4px}
 .wish-list li.empty{display:block;text-align:center;color:var(--muted);background:none;border-style:dashed}
+
+/* Danh sách gợi ý: cả dòng là một nút bấm để gửi */
+.wish-list.picks li{display:block;padding:0;border:0;background:none}
+.wish-list.picks li:hover{background:none;border-color:transparent}
+.wish-pick{
+  width:100%;display:flex;align-items:center;gap:12px;
+  padding:14px 16px;border-radius:14px;text-align:left;
+  border:1px solid var(--line);
+  background:linear-gradient(135deg,rgba(255,210,122,.06),rgba(255,210,122,.015));
+  color:var(--ink);font-size:14px;line-height:1.5;font-weight:500;
+}
+.wish-list .wish-pick span{flex:1;min-width:0;overflow-wrap:anywhere;padding-top:0}
+.wish-pick .ico{width:18px;height:18px;color:var(--gold);opacity:.8;transition:transform .25s ease,opacity .25s ease}
+.wish-pick:active{transform:scale(.985)}
 
 .wish-form{margin-top:16px}
 .wish-form label{display:block;margin-bottom:7px;font-size:13px;color:var(--muted)}
@@ -227,28 +328,33 @@ button[aria-pressed="true"]{
 .toast{position:absolute;top:calc(var(--tabs-h) + 8px);left:50%;z-index:40;transform:translate(-50%,-8px);max-width:88vw;padding:10px 18px;border:1px solid var(--line);border-radius:999px;background:rgba(28,16,34,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);font-size:12px;font-weight:600;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .3s ease,transform .3s cubic-bezier(.2,.8,.2,1)}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
-.wish-float{position:absolute;bottom:30%;z-index:15;pointer-events:none;transform:translateX(-50%);max-width:min(78vw,300px);padding:12px 16px;border:1px solid var(--line-strong);border-radius:16px;background:linear-gradient(180deg,rgba(40,22,48,.96),rgba(18,9,24,.96));box-shadow:0 10px 32px rgba(0,0,0,.5),0 0 24px rgba(255,210,122,.15);font:600 18px/1.35 var(--serif);text-align:center;overflow-wrap:anywhere;animation:wishRise 7s ease-out forwards}
-@keyframes wishRise{0%{opacity:0;transform:translate(-50%,24px)}12%,80%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,-160px)}}
+.wish-float{position:absolute;left:0;top:0;z-index:35;pointer-events:none;transform:translate(-50%,-50%) rotate(var(--rot,0deg));max-width:min(70vw,280px);padding:12px 16px;border:1px solid var(--line-strong);border-radius:16px;background:linear-gradient(180deg,rgba(40,22,48,.96),rgba(18,9,24,.96));box-shadow:0 10px 32px rgba(0,0,0,.5),0 0 24px rgba(255,210,122,.15);font:600 18px/1.35 var(--serif);text-align:center;overflow-wrap:anywhere;animation:wishPop 6.5s ease-out forwards}
+@keyframes wishPop{0%{opacity:0;transform:translate(-50%,-50%) rotate(var(--rot,0deg)) scale(.9)}12%,80%{opacity:1;transform:translate(-50%,-50%) rotate(var(--rot,0deg)) scale(1)}100%{opacity:0;transform:translate(-50%,calc(-50% - 18px)) rotate(var(--rot,0deg)) scale(1)}}
 
 @media(hover:hover){
   button:hover{transform:translateY(-1px)}
   .tabs button:hover{border-color:rgba(255,210,122,.4);background:rgba(34,20,42,.85);color:var(--ink)}
   .bar button:hover{border-color:rgba(255,210,122,.5);background:rgba(40,22,48,.88)}
-  .envelope:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(0,0,0,.55),inset 0 0 0 4px rgba(255,210,122,.22),0 0 44px rgba(255,210,122,.32)}
+  .envelope:hover{transform:none}
+  .envelope:hover .env-body{transform:translateY(-3px);box-shadow:0 18px 44px rgba(0,0,0,.55),inset 0 0 0 4px rgba(255,210,122,.22),0 0 44px rgba(255,210,122,.32)}
   .wish-list li:hover{border-color:var(--line-strong);background:linear-gradient(135deg,rgba(255,210,122,.12),rgba(255,210,122,.03))}
-  .wish-tab:hover:not([aria-pressed="true"]) {background: rgba(255, 210, 122, 0.1);}
+  .wish-tab:hover:not([aria-pressed="true"]){background:rgba(255,210,122,.1)}
+  .wish-pick:hover{transform:none;border-color:var(--line-strong);background:linear-gradient(135deg,rgba(255,210,122,.14),rgba(255,210,122,.03))}
+  .wish-pick:hover .ico{transform:translate(2px,-2px);opacity:1}
 }
 
 @media(max-height:700px){
-  .tree{width:78px;margin-bottom:5px}
+  .tree{width:76px;margin-bottom:4px}
   .lede{margin-top:8px}
-  .verse{margin-top:7px}
-  .countdown{margin-top:14px}
-  .welcome-line{margin-top:12px;font-size:clamp(16px,4.5vw,20px);}
+  .divider{margin-top:10px}
+  .scripture{margin-top:12px;padding:14px 18px 12px}
+  .cd{margin-top:14px}
+  .cd-cap{margin-bottom:6px}
+  .welcome-line{margin-top:12px;font-size:clamp(16px,4.5vw,20px)}
   .envelope{height:120px;margin-top:12px}
   .blessing{margin-top:10px;padding:10px 14px}
   .tabs button{padding:8px 12px}
-  .bar{gap:5px;padding-top:18px}
+  .bar{gap:6px;padding-top:18px}
 }
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
@@ -256,17 +362,54 @@ button[aria-pressed="true"]{
 </style>
 </head>
 <body>
+
+<!-- Bộ icon dùng chung -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-tree" viewBox="0 0 24 24"><path d="M12 2.5 16 8.5h-2.6L17 13.5h-3.2L18.5 19h-13l4.7-5.5H7l3.6-5H8z"/><path d="M12 19v2.5"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M10 3.5l1.6 4.4 4.4 1.6-4.4 1.6L10 15.5 8.4 11.1 4 9.5l4.4-1.6z"/><path d="M17.5 14l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></symbol>
+    <symbol id="i-blossom" viewBox="0 0 24 24">
+      <g>
+        <path d="M12 10.2C10.8 8.4 10.8 5.4 12 3.5c1.2 1.9 1.2 4.9 0 6.7z"/>
+        <path transform="rotate(72 12 12)" d="M12 10.2C10.8 8.4 10.8 5.4 12 3.5c1.2 1.9 1.2 4.9 0 6.7z"/>
+        <path transform="rotate(144 12 12)" d="M12 10.2C10.8 8.4 10.8 5.4 12 3.5c1.2 1.9 1.2 4.9 0 6.7z"/>
+        <path transform="rotate(216 12 12)" d="M12 10.2C10.8 8.4 10.8 5.4 12 3.5c1.2 1.9 1.2 4.9 0 6.7z"/>
+        <path transform="rotate(288 12 12)" d="M12 10.2C10.8 8.4 10.8 5.4 12 3.5c1.2 1.9 1.2 4.9 0 6.7z"/>
+        <circle cx="12" cy="12" r="1.6"/>
+      </g>
+    </symbol>
+    <symbol id="i-vol" viewBox="0 0 24 24"><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18.3 6.5a7.6 7.6 0 0 1 0 11"/></symbol>
+    <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></symbol>
+    <symbol id="i-snow" viewBox="0 0 24 24"><path d="M12 2.5v19M3.6 7.25l16.8 9.5M20.4 7.25l-16.8 9.5"/><path d="M9.5 4 12 5.8 14.5 4M9.5 20 12 18.2 14.5 20"/></symbol>
+    <symbol id="i-firework" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.8"/><path d="M12 7V3.5M12 17v3.5M7 12H3.5M17 12h3.5M8.5 8.5 6 6M15.5 15.5 18 18M8.5 15.5 6 18M15.5 8.5 18 6"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.7 4.7l1.6 1.6M17.7 17.7l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.7 19.3l1.6-1.6M17.7 6.3l1.6-1.6"/></symbol>
+    <symbol id="i-lantern" viewBox="0 0 24 24"><path d="M9 5h6M8 8h8l1.5 4.5L16 17H8l-1.5-4.5z"/><path d="M12 2.5V5M10 17v1.5h4V17M11 21h2"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.8z"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.4 7.5L3.5 20.5l1.6-4.3A8.5 8.5 0 1 1 20.5 11.5z"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3 10.5 13.5"/><path d="M21 3l-6.8 18-3.7-7.5L3 9.8z"/></symbol>
+  </defs>
+</svg>
+
 <canvas id="fx" aria-hidden="true"></canvas>
-<nav class="tabs" aria-label="Chọn cảnh"><button type="button" data-scene="xmas" aria-pressed="true">Giáng sinh 2026</button><button type="button" data-scene="ny" aria-pressed="false">Năm mới 2027</button><button type="button" data-scene="tet" aria-pressed="false">Tết Đinh Mùi</button></nav>
+
+<nav class="tabs" aria-label="Chọn cảnh">
+  <button type="button" data-scene="xmas" aria-pressed="true"><svg class="ico" aria-hidden="true"><use href="#i-tree"/></svg>Giáng sinh 2026</button>
+  <button type="button" data-scene="ny" aria-pressed="false"><svg class="ico" aria-hidden="true"><use href="#i-sparkle"/></svg>Năm mới 2027</button>
+  <button type="button" data-scene="tet" aria-pressed="false"><svg class="ico" aria-hidden="true"><use href="#i-blossom"/></svg>Tết Đinh Mùi</button>
+</nav>
+
 <main>
 <section class="scene is-active" id="scene-xmas" aria-label="Giáng sinh 2026">
   <div class="scene-inner">
     <svg class="tree" viewBox="0 0 120 150" aria-hidden="true"><defs><linearGradient id="leaf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9be7bf"/><stop offset="1" stop-color="#2d7356"/></linearGradient></defs><circle cx="60" cy="22" r="17" fill="#ffd27a" opacity=".18"/><path d="M60 7 38 42h13L28 68h20L18 98h32v25h20V98h32L72 68h20L69 42h13z" fill="url(#leaf)"/><rect x="52" y="120" width="16" height="19" rx="2" fill="#9a5b38"/><circle cx="44" cy="54" r="4" fill="#ffd27a"/><circle cx="72" cy="75" r="4" fill="#ff9a8a"/><circle cx="52" cy="96" r="4" fill="#ffd27a"/><circle cx="78" cy="44" r="3" fill="#fff4e2"/></svg>
-    <p class="eyebrow">Merry Christmas</p>
-    <h1 class="script">Giáng Sinh 2026</h1>
+    <p class="eyebrow">Mừng Chúa Giáng Sinh</p>
+    <h1 class="script">Merry Christmas</h1>
     <p class="lede">Chúc bạn và gia đình một mùa Giáng sinh ấm áp, an lành và đầy yêu thương.</p>
-    <p class="verse">Vinh danh Thiên Chúa trên trời, bình an dưới thế cho người thiện tâm (Lc 2,14)</p>
-    <p class="welcome-line">Cùng nhau đón chào mùa Giáng sinh an lành</p>
+    <div class="divider" aria-hidden="true"><i></i><svg class="ico"><use href="#i-sparkle"/></svg><i></i></div>
+    <figure class="scripture">
+      <blockquote>“Vinh danh Thiên Chúa trên trời, bình an dưới thế cho người thiện tâm.”</blockquote>
+      <figcaption>Lc 2,14</figcaption>
+    </figure>
   </div>
 </section>
 
@@ -275,11 +418,19 @@ button[aria-pressed="true"]{
     <p class="eyebrow">Chúc mừng năm mới</p>
     <h1 class="year">2027</h1>
     <p class="lede">Năm mới an khang, thịnh vượng, vạn sự như ý.</p>
-    <div class="countdown" role="timer" aria-label="Thời gian còn lại đến năm 2027">
-      <div><span id="cd-d">--</span><small>ngày</small></div>
-      <div><span id="cd-h">--</span><small>giờ</small></div>
-      <div><span id="cd-m">--</span><small>phút</small></div>
-      <div><span id="cd-s">--</span><small>giây</small></div>
+    <div class="cd">
+      <p class="cd-cap">Năm mới sắp gõ cửa</p>
+      <div class="countdown" id="cd-ny" role="timer" aria-label="Thời gian còn lại đến năm 2027">
+        <div><span data-u="d">--</span><small>ngày</small></div>
+        <div><span data-u="h">--</span><small>giờ</small></div>
+        <div><span data-u="m">--</span><small>phút</small></div>
+        <div><span data-u="s">--</span><small>giây</small></div>
+      </div>
+      <div class="done" id="done-ny" role="status" hidden>
+        <svg class="ico" aria-hidden="true"><use href="#i-sparkle"/></svg>
+        <strong>Năm 2027 đã về!</strong>
+        <span>Chúc mừng năm mới, an khang và thịnh vượng.</span>
+      </div>
     </div>
     <p class="welcome-line">Cùng nhau đón chào Năm Mới 2027</p>
   </div>
@@ -289,21 +440,31 @@ button[aria-pressed="true"]{
   <div class="scene-inner">
     <p class="eyebrow">Mừng Xuân Đinh Mùi 2027</p>
     <h1 class="tet-title">Tết Đinh Mùi</h1>
-    <button type="button" class="envelope" id="envelope" aria-label="Hái lộc Thánh">
-      <span class="flap" aria-hidden="true"></span>
-      <span class="env-top">Lì xì</span>
-      <span class="seal" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M10 2h4v6h6v4h-6v10h-4V12H4V8h6z" fill="#7a0f16"/></svg></span>
-      <span class="env-label">Hái lộc Thánh</span>
+    <button type="button" class="envelope" id="envelope">
+      <span class="env-body">
+        <span class="flap" aria-hidden="true"></span>
+        <span class="env-top">Lì xì</span>
+        <span class="seal" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M10 2h4v6h6v4h-6v10h-4V12H4V8h6z" fill="#7a0f16"/></svg></span>
+        <span class="env-label" id="envLabel">Hái lộc Thánh</span>
+      </span>
     </button>
     <p class="blessing" id="blessing" aria-live="polite">
       <span id="lt-text">Chạm vào phong lì xì để hái lộc Thánh đầu năm.</span>
       <span class="lt-ref" id="lt-ref"></span>
     </p>
-    <div class="countdown" role="timer" aria-label="Thời gian còn lại đến giao thừa Tết Đinh Mùi">
-      <div><span id="td-d">--</span><small>ngày</small></div>
-      <div><span id="td-h">--</span><small>giờ</small></div>
-      <div><span id="td-m">--</span><small>phút</small></div>
-      <div><span id="td-s">--</span><small>giây</small></div>
+    <div class="cd">
+      <p class="cd-cap">Giao thừa sắp về bên mái ấm</p>
+      <div class="countdown" id="cd-tet" role="timer" aria-label="Thời gian còn lại đến giao thừa Tết Đinh Mùi">
+        <div><span data-u="d">--</span><small>ngày</small></div>
+        <div><span data-u="h">--</span><small>giờ</small></div>
+        <div><span data-u="m">--</span><small>phút</small></div>
+        <div><span data-u="s">--</span><small>giây</small></div>
+      </div>
+      <div class="done" id="done-tet" role="status" hidden>
+        <svg class="ico" aria-hidden="true"><use href="#i-blossom"/></svg>
+        <strong>Giao thừa đã đến!</strong>
+        <span>Chúc mừng năm mới Đinh Mùi, vạn sự hanh thông.</span>
+      </div>
     </div>
     <p class="welcome-line">Cùng nhau đón chào Xuân Đinh Mùi 2027</p>
   </div>
@@ -311,31 +472,31 @@ button[aria-pressed="true"]{
 </main>
 
 <div class="bar" role="toolbar" aria-label="Tùy chọn hiệu ứng">
-  <button type="button" id="btnSound" aria-pressed="false">♫ Âm thanh</button>
-  <button type="button" id="btnSnow" aria-pressed="true" data-scenes="xmas ny">Tuyết</button>
-  <button type="button" id="btnAuto" aria-pressed="true" data-scenes="ny tet">Pháo tự động</button>
-  <button type="button" id="btnWarm" aria-pressed="true" data-scenes="ny tet">Màu ấm</button>
-  <button type="button" id="btnPetals" aria-pressed="true" data-scenes="tet">Cánh hoa mai</button>
-  <button type="button" id="btnLantern">Thả đèn cầu may</button>
-  <button type="button" id="btnLocThanh">Lộc Thánh</button>
-  <button type="button" id="btnWish">Lời chúc</button>
+  <button type="button" id="btnSound" aria-pressed="true"><svg class="ico" aria-hidden="true"><use id="soundIco" href="#i-vol"/></svg><span id="soundLabel">Chạm để nghe</span></button>
+  <button type="button" id="btnSnow" aria-pressed="true" data-scenes="xmas ny"><svg class="ico" aria-hidden="true"><use href="#i-snow"/></svg>Tuyết</button>
+  <button type="button" id="btnAuto" aria-pressed="true" data-scenes="ny tet"><svg class="ico" aria-hidden="true"><use href="#i-firework"/></svg>Pháo tự động</button>
+  <button type="button" id="btnWarm" aria-pressed="true" data-scenes="ny tet"><svg class="ico" aria-hidden="true"><use href="#i-sun"/></svg>Màu ấm</button>
+  <button type="button" id="btnPetals" aria-pressed="true" data-scenes="tet"><svg class="ico" aria-hidden="true"><use href="#i-blossom"/></svg>Cánh hoa mai</button>
+  <button type="button" id="btnLantern"><svg class="ico" aria-hidden="true"><use id="lanternIco" href="#i-lantern"/></svg><span id="lanternLabel">Đèn cầu may</span></button>
+  <button type="button" id="btnWish"><svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg>Lời chúc</button>
 </div>
 
 <section class="sheet" id="wishSheet" aria-labelledby="wishTitle" role="dialog" aria-modal="true" hidden>
   <div class="sheet-card">
     <header class="sheet-head">
-      <h2 id="wishTitle">Lời chúc</h2>
+      <h2 id="wishTitle"><svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg>Lời chúc</h2>
       <button type="button" class="mini" id="wishClose">Đóng</button>
     </header>
-    
-    <div class="wish-tabs">
-      <button type="button" class="wish-tab" data-tab="global" aria-pressed="true">Xem & Gửi</button>
+
+    <div class="wish-tabs" role="group" aria-label="Chọn mục lời chúc">
+      <button type="button" class="wish-tab" data-tab="compose" aria-pressed="true">Viết & gửi</button>
+      <button type="button" class="wish-tab" data-tab="sent" aria-pressed="false">Đã gửi</button>
       <button type="button" class="wish-tab" data-tab="xmas" aria-pressed="false">Gợi ý GS</button>
       <button type="button" class="wish-tab" data-tab="ny" aria-pressed="false">Gợi ý Tết</button>
     </div>
 
-    <!-- Tab Global -->
-    <div id="tab-global" class="wish-tab-content">
+    <!-- Viết & gửi -->
+    <div id="tab-compose" class="wish-tab-content">
       <div class="wish-form">
         <label for="wishInput">Viết lời chúc của bạn</label>
         <textarea id="wishInput" rows="3" maxlength="200" placeholder="Nhập lời chúc bạn muốn gửi..."></textarea>
@@ -344,41 +505,55 @@ button[aria-pressed="true"]{
           <button type="button" class="primary" id="wishSubmit">Gửi lời chúc</button>
         </div>
       </div>
+    </div>
+
+    <!-- Lời chúc đã gửi -->
+    <div id="tab-sent" class="wish-tab-content" hidden>
+      <p class="sent-cap">Lời chúc đã gửi</p>
       <ul class="wish-list" id="wishList" aria-live="polite"></ul>
     </div>
 
-    <!-- Tab Xmas -->
+    <!-- Gợi ý Giáng sinh -->
     <div id="tab-xmas" class="wish-tab-content" hidden>
-      <ul class="wish-list" id="wishListXmas"></ul>
+      <ul class="wish-list picks" id="wishListXmas"></ul>
     </div>
 
-    <!-- Tab NY -->
+    <!-- Gợi ý Tết -->
     <div id="tab-ny" class="wish-tab-content" hidden>
-      <ul class="wish-list" id="wishListNy"></ul>
+      <ul class="wish-list picks" id="wishListNy"></ul>
     </div>
   </div>
 </section>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<audio id="xmasMusic" src="noel.mp3" preload="metadata" loop playsinline></audio>
-<audio id="tetMusic" src="tet.mp3" preload="metadata" loop playsinline></audio>
+<!-- Đặt noel.mp3 và tet.mp3 cùng thư mục với file HTML này -->
+<audio id="xmasMusic" src="noel.mp3" preload="auto" loop playsinline></audio>
+<audio id="tetMusic" src="tet.mp3" preload="auto" loop playsinline></audio>
 
 <script>
 (()=>{'use strict';
-const $=id=>document.getElementById(id),rand=(a,b)=>a+Math.random()*(b-a),pick=a=>a[Math.floor(Math.random()*a.length)],clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),pad2=n=>String(n).padStart(2,'0');
+const $=id=>document.getElementById(id);
+const rand=(a,b)=>a+Math.random()*(b-a);
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const pad2=n=>String(n).padStart(2,'0');
 const reduceMotion=!!(matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
-let scene='xmas',soundOn=false,snowOn=true,autoOn=true,warmMode=true,petalsOn=true,lastAuto=0,lastLantern=0,lastFrame=0,raf=0,audioCtx=null,musicTimer=null,musicStep=0,synthActive=false;
+
+let scene='xmas';
+let soundOn=true;                       // mặc định bật; người xem có thể tắt bằng nút
+let snowOn=true,autoOn=true,warmMode=true,petalsOn=true;
+let lastAuto=0,lastLantern=0,lastFrame=0,raf=0;
 
 const SUPABASE_URL='https://ffufhbskmviesczweqkg.supabase.co';
 const SUPABASE_KEY='sb_publishable_M4cDU1usByyG-N6twgbE0w_AI423Wov';
 const SB_ON=!!(SUPABASE_URL&&SUPABASE_KEY);
 const WISH_KEY='ny2027-wishes';
 
-const canvas=$('fx'),g=canvas.getContext('2d');let W=innerWidth,H=innerHeight,DPR=1;
+const canvas=$('fx'),g=canvas.getContext('2d');
+let W=innerWidth,H=innerHeight,DPR=1;
 const stars=[],flakes=[],petals=[],fireworks=[],lanterns=[];
 
-/* Layout */
+/* ===== Layout ===== */
 function syncLayout(){
   try{
     const tabs=document.querySelector('.tabs'),bar=document.querySelector('.bar');
@@ -402,29 +577,41 @@ function resize(){
 
 function burst(x,y){
   if(fireworks.length>500)fireworks.splice(0,fireworks.length-350);
-  let count=reduceMotion?18:55;
-  for(let i=0;i<count;i++){let a=Math.PI*2*i/count,s=rand(1.2,4.5);fireworks.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:1,h:rand(warmMode?12:0,warmMode?52:360),r:rand(1,2.5)});}
+  const count=reduceMotion?18:55;
+  for(let i=0;i<count;i++){
+    const a=Math.PI*2*i/count,s=rand(1.2,4.5);
+    fireworks.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:1,h:rand(warmMode?12:0,warmMode?52:360),r:rand(1,2.5)});
+  }
 }
-function spawnLantern(){if(lanterns.length<18)lanterns.push({x:rand(W*.15,W*.85),y:H+20,v:rand(.3,.6),p:rand(0,6.28),red:scene==='tet'});}
+function spawnLantern(){if(lanterns.length<18)lanterns.push({x:rand(W*.15,W*.85),y:H+20,v:rand(.3,.6),p:rand(0,6.28)})}
+
+function drawStar(x,y,outer,inner){
+  g.beginPath();
+  for(let k=0;k<10;k++){
+    const r=k%2?inner:outer,a=-Math.PI/2+k*Math.PI/5;
+    g.lineTo(x+Math.cos(a)*r,y+Math.sin(a)*r);
+  }
+  g.closePath();g.fill();
+}
 
 function frame(t){
   if(document.hidden){raf=requestAnimationFrame(frame);return}
   if(!reduceMotion&&t-lastFrame<25){raf=requestAnimationFrame(frame);return}
   lastFrame=t;g.clearRect(0,0,W,H);
-  
-  // Stars
+
+  // Sao nền
   g.fillStyle='#fff4e2';
   for(const s of stars){g.globalAlpha=reduceMotion?.55:.25+.55*(.5+.5*Math.sin(t*.001+s.p));g.beginPath();g.arc(s.x,s.y,s.r,0,Math.PI*2);g.fill()}
   g.globalAlpha=1;
-  
-  // Snow
+
+  // Tuyết
   if(scene!=='tet'&&snowOn){
     g.fillStyle='#fff8ee';
     for(const f of flakes){f.y+=f.v;f.x+=Math.sin(t*.001+f.p)*.4;if(f.y>H+4){f.y=-4;f.x=Math.random()*W}g.globalAlpha=.55;g.beginPath();g.arc(f.x,f.y,f.r,0,Math.PI*2);g.fill()}
     g.globalAlpha=1;
   }
-  
-  // Petals
+
+  // Cánh hoa mai
   if(scene==='tet'&&petalsOn){
     for(const p of petals){
       p.y+=p.v;p.x+=Math.sin(t*.001+p.p)*.6;p.rot+=.012;
@@ -434,191 +621,294 @@ function frame(t){
       g.restore();
     }
   }
-  
-  // Auto fireworks
+
+  // Pháo tự động
   if(scene!=='xmas'&&autoOn&&t-lastAuto>(reduceMotion?4000:1350+Math.random()*1200)){
     burst(rand(W*.15,W*.85),rand(H*.12,H*.48));lastAuto=t;
   }
   if(scene==='tet'&&t-lastLantern>2600){spawnLantern();lastLantern=t}
-  
-  // Draw fireworks
+
+  // Vẽ pháo hoa
   for(let i=fireworks.length-1;i>=0;i--){
     const p=fireworks[i];p.x+=p.vx;p.y+=p.vy;p.vy+=.035;p.vx*=.99;p.life-=.018;
     if(p.life<=0){fireworks.splice(i,1);continue}
     g.fillStyle=`hsla(${p.h},100%,70%,${p.life})`;g.beginPath();g.arc(p.x,p.y,p.r*p.life,0,Math.PI*2);g.fill();
   }
-  
-  // Draw lanterns
+
+  // Vẽ vật cầu may: sao vàng ở cảnh Giáng sinh, đèn lồng ở cảnh còn lại
   for(let i=lanterns.length-1;i>=0;i--){
     const l=lanterns[i];l.y-=l.v;l.x+=Math.sin(t*.001+l.p)*.3;
-    if(l.y< -30){lanterns.splice(i,1);continue}
-    g.globalAlpha=.8;g.fillStyle=l.red?'#f45b48':'#ffb85c';g.beginPath();g.ellipse(l.x,l.y,8,12,0,0,Math.PI*2);g.fill();
-    g.fillStyle='#ffe6a1';g.fillRect(l.x-4,l.y+10,8,2);
+    if(l.y<-30){lanterns.splice(i,1);continue}
+    if(scene==='xmas'){
+      const tw=.65+.35*Math.sin(t*.005+l.p);
+      g.globalAlpha=.22*tw;g.fillStyle='#ffd27a';g.beginPath();g.arc(l.x,l.y,13,0,Math.PI*2);g.fill();
+      g.globalAlpha=.95*tw;drawStar(l.x,l.y,7,3.2);
+    }else{
+      g.globalAlpha=.8;g.fillStyle='#ffb85c';g.beginPath();g.ellipse(l.x,l.y,8,12,0,0,Math.PI*2);g.fill();
+      g.fillStyle='#ffe6a1';g.fillRect(l.x-4,l.y+10,8,2);
+    }
   }
   g.globalAlpha=1;
   raf=requestAnimationFrame(frame);
 }
 
-function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove('show'),2600)}
+function toast(msg){
+  const el=$('toast');el.textContent=msg;el.classList.add('show');
+  clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove('show'),2600);
+}
 
+/* ===== Cảnh & thanh chức năng ===== */
 const scenes={xmas:$('scene-xmas'),ny:$('scene-ny'),tet:$('scene-tet')};
+
+function updateLanternBtn(){
+  const xmas=scene==='xmas';
+  $('lanternIco').setAttribute('href',xmas?'#i-star':'#i-lantern');
+  $('lanternLabel').textContent=xmas?'Sao cầu may':'Đèn cầu may';
+}
+
 function updateBar(){
-  document.querySelectorAll('.bar [data-scenes]').forEach(b=>b.hidden=!b.dataset.scenes.split(' ').includes(scene));
-  $('btnSound').setAttribute('aria-pressed',String(soundOn));
+  document.querySelectorAll('.bar [data-scenes]').forEach(b=>{b.hidden=!b.dataset.scenes.split(' ').includes(scene)});
+  updateLanternBtn();
   syncLayout();
 }
+
 function setScene(next){
   if(!scenes[next]||next===scene)return;
   scene=next;document.documentElement.dataset.scene=scene;
-  for(const k in scenes){const active=k===scene;scenes[k].classList.toggle('is-active',active);scenes[k].setAttribute('aria-hidden',String(!active))}
+  for(const k in scenes){const on=k===scene;scenes[k].classList.toggle('is-active',on);scenes[k].setAttribute('aria-hidden',String(!on))}
   document.querySelectorAll('[data-scene]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.scene===scene)));
   updateBar();
-  if(soundOn) syncMusic();
+  if(soundOn)playMusic();           // đổi cảnh thì đổi nhạc theo cảnh
   if(scene!=='xmas')burst(W/2,H*.25);
 }
 
-/* Countdown (Mốc Tết: Giao thừa 2027-02-06 00:00:00 UTC+7) */
-const countdowns=[
-  {at:Date.parse('2027-01-01T00:00:00+07:00'),ids:['cd-d','cd-h','cd-m','cd-s']}, 
-  {at:Date.parse('2027-02-06T00:00:00+07:00'),ids:['td-d','td-h','td-m','td-s']}
+/* ===== Đếm ngược: khi về 0 thì hiện lời chúc thay cho số ===== */
+const CD=[
+  {at:Date.parse('2027-01-01T00:00:00+07:00'),grid:$('cd-ny'),done:$('done-ny'),finished:false,msg:'Chúc mừng Năm Mới 2027!'},
+  {at:Date.parse('2027-02-06T00:00:00+07:00'),grid:$('cd-tet'),done:$('done-tet'),finished:false,msg:'Giao thừa đã đến! Chúc mừng năm mới Đinh Mùi!'}
 ];
-function updateCountdowns(){
-  const now=Date.now();
-  for(const c of countdowns){
-    let s=Math.max(0,Math.floor((c.at-now)/1000));
-    c.ids.forEach((id,i)=>{
-      $(id).textContent = i===0 ? String(Math.floor(s/86400)) : pad2(i===1 ? Math.floor(s%86400/3600) : i===2 ? Math.floor(s%3600/60) : s%60);
-    });
-  }
-}
-updateCountdowns();
-setInterval(updateCountdowns,1000);
 
-function ensureAudio(){try{if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();return true}catch(e){return false}}
+function setCountdownDone(c,withCelebration){
+  c.finished=true;c.grid.hidden=true;c.done.hidden=false;
+  if(withCelebration)celebrate(c.msg);
+}
+
+function celebrate(msg){
+  toast(msg);
+  let n=0;
+  const id=setInterval(()=>{
+    burst(rand(W*.18,W*.82),rand(H*.12,H*.42));
+    if(++n>=8)clearInterval(id);
+  },420);
+}
+
+function tickCountdown(c){
+  const left=c.at-Date.now();
+  if(left<=0){if(!c.finished)setCountdownDone(c,true);return}
+  const s=Math.floor(left/1000);
+  const v={d:Math.floor(s/86400),h:Math.floor(s%86400/3600),m:Math.floor(s%3600/60),s:s%60};
+  c.grid.querySelectorAll('[data-u]').forEach(el=>{
+    const k=el.dataset.u;
+    el.textContent=k==='d'?String(v.d):pad2(v[k]);
+  });
+}
+
+CD.forEach(c=>{if(Date.now()>=c.at)setCountdownDone(c,false)});
+function tickAll(){CD.forEach(tickCountdown)}
+tickAll();
+setInterval(tickAll,1000);
+
+/* ===== Âm thanh ===== */
+let audioCtx=null,playingEl=null,synthTimer=null,synthStep=0;
+const files={xmas:$('xmasMusic'),tet:$('tetMusic')};
+const trackOf=()=>scene==='xmas'?files.xmas:files.tet;   // Năm mới & Tết dùng nhạc Tết
+const isPlaying=()=>!!(playingEl&&!playingEl.paused)||!!synthTimer;
+
+function ensureAudio(){
+  try{
+    if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+    if(audioCtx.state==='suspended')audioCtx.resume();
+    return true;
+  }catch(e){return false}
+}
+
 function tone(freq,duration=.5,vol=.04,delay=0){
   if(!audioCtx||!soundOn)return;
   const t=audioCtx.currentTime+delay,o=audioCtx.createOscillator(),gain=audioCtx.createGain();
   o.type='sine';o.frequency.value=freq;
-  gain.gain.setValueAtTime(.0001,t);gain.gain.exponentialRampToValueAtTime(Math.max(.001,vol),t+.025);gain.gain.exponentialRampToValueAtTime(.0001,t+duration);
+  gain.gain.setValueAtTime(.0001,t);
+  gain.gain.exponentialRampToValueAtTime(Math.max(.001,vol),t+.025);
+  gain.gain.exponentialRampToValueAtTime(.0001,t+duration);
   o.connect(gain);gain.connect(audioCtx.destination);o.start(t);o.stop(t+duration+.04);
 }
 
-const files={xmas:$('xmasMusic'),tet:$('tetMusic')};let activeFile=null;
-function currentFile(){return scene==='xmas'?files.xmas:files.tet}
-function pauseFiles(except=null){Object.values(files).forEach(a=>{if(a!==except)a.pause()})}
-
-async function syncMusic(){
-  if(!soundOn){
-    pauseFiles();activeFile=null;clearInterval(musicTimer);musicTimer=null;synthActive=false;return;
-  }
-  const a=currentFile();
-  if(a===activeFile && !a.paused && !a.ended) {
-    // Nếu MP3 đang phát đúng bài, không làm gì cả. Đảm bảo synth tắt.
-    if(synthActive){clearInterval(musicTimer);musicTimer=null;synthActive=false;}
-    return;
-  }
-  pauseFiles(a);
-  try{
-    a.volume=.72;const result=a.play();
-    if(result&&typeof result.then==='function')await result;
-    if(!soundOn||currentFile()!==a){a.pause();return}
-    activeFile=a;clearInterval(musicTimer);musicTimer=null;synthActive=false;
-  }catch(err){
-    a.pause();activeFile=null;
-    if(soundOn){toast('Không phát được MP3; đang dùng âm thanh dự phòng');startSynth()}
-  }
-}
+function stopSynth(){clearInterval(synthTimer);synthTimer=null}
 
 function startSynth(){
-  if(!soundOn||!ensureAudio())return;
-  clearInterval(musicTimer);
-  synthActive=true;
-  musicTimer=setInterval(()=>{
-    if(!soundOn) return;
-    if(activeFile && !activeFile.paused) return; // MP3 đang phát
-    const scale=scene==='xmas'?[784,740,659,587,659,740,784,659]:[523,587,659,784,880,784,659,587];
-    tone(scale[musicStep%scale.length],.38,.035);musicStep++;
+  if(synthTimer||!soundOn||!ensureAudio())return;
+  synthTimer=setInterval(()=>{
+    if(document.hidden)return;
+    const sc=scene==='xmas'?[784,740,659,587,659,740,784,659]:[523,587,659,784,880,784,659,587];
+    tone(sc[synthStep++%sc.length],.38,.035);
   },460);
+  updateSoundBtn();
 }
 
-function stopMusic(){soundOn=false;pauseFiles();activeFile=null;clearInterval(musicTimer);musicTimer=null;synthActive=false;updateBar()}
+function pauseAll(){
+  Object.values(files).forEach(a=>a.pause());
+  playingEl=null;stopSynth();updateSoundBtn();
+}
+
+async function playMusic(){
+  if(!soundOn){pauseAll();return}
+  const el=trackOf();
+  if(el===playingEl&&!el.paused)return;
+  Object.values(files).forEach(a=>{if(a!==el)a.pause()});
+  stopSynth();
+  playingEl=el;
+  el.volume=.6;
+  try{
+    await el.play();
+    if(!soundOn)el.pause();
+  }catch(err){
+    playingEl=null;
+    // Trình duyệt chặn nhạc có tiếng khi chưa có thao tác: chờ lần chạm đầu tiên
+    if(err&&err.name==='NotAllowedError'){updateSoundBtn();return}
+    // Thiếu file MP3 hoặc lỗi khác: dùng nhạc dự phòng do trình duyệt tạo
+    startSynth();
+  }
+  updateSoundBtn();
+}
+
+function updateSoundBtn(){
+  $('btnSound').setAttribute('aria-pressed',String(soundOn));
+  $('soundLabel').textContent=!soundOn?'Nhạc: tắt':isPlaying()?'Nhạc: bật':'Chạm để nghe';
+  $('soundIco').setAttribute('href',soundOn?'#i-vol':'#i-mute');
+}
 
 Object.values(files).forEach(a=>{
-  a.addEventListener('error',()=>{if(soundOn&&a===currentFile()){activeFile=null;a.pause();startSynth();toast('MP3 không tải được; dùng nhạc dự phòng')}});
+  a.addEventListener('play',updateSoundBtn);
+  a.addEventListener('pause',updateSoundBtn);
 });
 
-$('btnSound').addEventListener('click',async()=>{
-  if(!soundOn){
-    if(!ensureAudio()){toast('iPhone chưa hỗ trợ phát âm thanh');return}
-    soundOn=true;updateBar();
-    await syncMusic();
-    if(soundOn)toast(activeFile?'Đã bật nhạc':'Đã bật âm thanh dự phòng');
-  }else{stopMusic();toast('Đã tắt âm thanh')}
+$('btnSound').addEventListener('click',()=>{
+  if(soundOn&&isPlaying()){
+    soundOn=false;pauseAll();toast('Đã tắt nhạc');
+  }else{
+    soundOn=true;ensureAudio();playMusic();toast('Đã bật nhạc');
+  }
+  updateSoundBtn();
 });
 
-for(const [id,key] of [['btnSnow','snowOn'],['btnAuto','autoOn'],['btnWarm','warmMode'],['btnPetals','petalsOn']]){
-  $(id).addEventListener('click',()=>{
-    if(key==='snowOn')snowOn=!snowOn;if(key==='autoOn')autoOn=!autoOn;
-    if(key==='warmMode')warmMode=!warmMode;if(key==='petalsOn')petalsOn=!petalsOn;
-    $(id).setAttribute('aria-pressed',String(({snowOn,autoOn,warmMode,petalsOn})[key]));
-  });
+// Lần chạm đầu tiên vào trang (ngoài thanh chức năng) sẽ bắt đầu nhạc nếu trình duyệt đã chặn
+function nudgeMusic(e){
+  if(!soundOn||isPlaying())return;
+  if(e.target&&e.target.closest&&e.target.closest('.bar,.sheet'))return;
+  ensureAudio();playMusic();
+}
+window.addEventListener('pointerdown',nudgeMusic,{passive:true});
+window.addEventListener('keydown',nudgeMusic);
+
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden){
+    Object.values(files).forEach(a=>a.pause());
+    stopSynth();updateSoundBtn();
+  }else if(soundOn){
+    playMusic();
+  }
+});
+
+/* ===== Các nút hiệu ứng ===== */
+const TOGGLES={
+  btnSnow:[()=>snowOn,v=>{snowOn=v}],
+  btnAuto:[()=>autoOn,v=>{autoOn=v}],
+  btnWarm:[()=>warmMode,v=>{warmMode=v}],
+  btnPetals:[()=>petalsOn,v=>{petalsOn=v}]
+};
+for(const id in TOGGLES){
+  const [get,set]=TOGGLES[id],btn=$(id);
+  btn.setAttribute('aria-pressed',String(get()));
+  btn.addEventListener('click',()=>{set(!get());btn.setAttribute('aria-pressed',String(get()))});
 }
 
-$('btnLantern').addEventListener('click',()=>{spawnLantern();if(soundOn)tone(659,.35,.035);toast('Đèn cầu may đã được thả!')});
+$('btnLantern').addEventListener('click',()=>{
+  spawnLantern();
+  toast(scene==='xmas'?'Sao cầu may đã được thả!':'Đèn cầu may đã được thả!');
+});
+
 document.querySelectorAll('[data-scene]').forEach(b=>b.addEventListener('click',()=>setScene(b.dataset.scene)));
 
 /* ===== LỘC THÁNH ===== */
-const LOC_THANH = [
-  { text: "Chúa là Đấng chăn dắt tôi, tôi không thiếu thốn gì.", ref: "Thánh Vịnh 23,1" },
-  { text: "Hãy đến với Ta, hỡi tất cả những ai đang vất vả mang gánh nặng nề, và Ta sẽ cho nghỉ ngơi bồi dưỡng.", ref: "Tin Mừng theo Thánh Mát-thêu 11,28" },
-  { text: "Thầy để lại bình an cho anh em, Thầy ban bình an của Thầy cho anh em. Bình an mà thế gian ban tặng không giống như bình an Thầy ban cho anh em.", ref: "Tin Mừng theo Thánh Gioan 14,27" },
-  { text: "Chúng ta biết rằng: Thiên Chúa làm cho mọi sự đều sinh ích lợi cho những ai yêu mến Người.", ref: "Thư gửi tín hữu Rô-ma 8,28" },
-  { text: "Ai trông cậy vào Đức Chúa sẽ được thêm sức mạnh.", ref: "Sách Ngôn Sứ I-sai-a 40,31" },
-  { text: "Mọi ân huệ tốt lành và mọi quà tặng hoàn hảo đều từ trên cao, từ Cha các ngôi sáng mà xuống.", ref: "Thư của Thánh Gia-cô-bê 1,17" },
-  { text: "Phúc thay ai xây dựng hòa bình, vì họ sẽ được gọi là con Thiên Chúa.", ref: "Tin Mừng theo Thánh Mát-thêu 5,9" },
-  { text: "Trước hết, hãy tìm kiếm Nước Thiên Chúa và đức công chính của Người, còn tất cả những thứ kia, Người sẽ thêm cho.", ref: "Tin Mừng theo Thánh Mát-thêu 6,33" },
-  { text: "Hãy vui mừng trong Chúa luôn mãi. Tôi nhắc lại: anh em hãy vui mừng lên!", ref: "Thư gửi tín hữu Phi-líp-phê 4,4" },
-  { text: "Đức tin là bảo đảm cho những điều ta hy vọng, là bằng chứng cho những điều ta không thấy.", ref: "Thư gửi tín hữu Híp-ri 11,1" }
+const LOC_THANH=[
+  {text:"Chúa là Đấng chăn dắt tôi, tôi không thiếu thốn gì.",ref:"Thánh Vịnh 23,1"},
+  {text:"Hãy đến với Ta, hỡi tất cả những ai đang vất vả mang gánh nặng nề, và Ta sẽ cho nghỉ ngơi bồi dưỡng.",ref:"Tin Mừng theo Thánh Mát-thêu 11,28"},
+  {text:"Thầy để lại bình an cho anh em, Thầy ban bình an của Thầy cho anh em. Bình an mà thế gian ban tặng không giống như bình an Thầy ban cho anh em.",ref:"Tin Mừng theo Thánh Gioan 14,27"},
+  {text:"Chúng ta biết rằng: Thiên Chúa làm cho mọi sự đều sinh ích lợi cho những ai yêu mến Người.",ref:"Thư gửi tín hữu Rô-ma 8,28"},
+  {text:"Ai trông cậy vào Đức Chúa sẽ được thêm sức mạnh.",ref:"Sách Ngôn Sứ I-sai-a 40,31"},
+  {text:"Mọi ân huệ tốt lành và mọi quà tặng hoàn hảo đều từ trên cao, từ Cha các ngôi sáng mà xuống.",ref:"Thư của Thánh Gia-cô-bê 1,17"},
+  {text:"Phúc thay ai xây dựng hòa bình, vì họ sẽ được gọi là con Thiên Chúa.",ref:"Tin Mừng theo Thánh Mát-thêu 5,9"},
+  {text:"Trước hết, hãy tìm kiếm Nước Thiên Chúa và đức công chính của Người, còn tất cả những thứ kia, Người sẽ thêm cho.",ref:"Tin Mừng theo Thánh Mát-thêu 6,33"},
+  {text:"Hãy vui mừng trong Chúa luôn mãi. Tôi nhắc lại: anh em hãy vui mừng lên!",ref:"Thư gửi tín hữu Phi-líp-phê 4,4"},
+  {text:"Đức tin là bảo đảm cho những điều ta hy vọng, là bằng chứng cho những điều ta không thấy.",ref:"Thư gửi tín hữu Híp-ri 11,1"},
+  {text:"Chúa là ánh sáng và là ơn cứu độ tôi, tôi còn sợ ai nữa?",ref:"Thánh Vịnh 27,1"},
+  {text:"Hãy tạ ơn Chúa vì Người nhân từ, tình thương của Người tồn tại muôn đời.",ref:"Thánh Vịnh 118,1"},
+  {text:"Hãy phó thác đường đời cho Chúa, tin tưởng nơi Người, và Người sẽ hành động.",ref:"Thánh Vịnh 37,5"},
+  {text:"Hết lòng tin cậy Chúa, đừng cậy vào sự khôn ngoan của riêng mình; trong mọi việc, hãy nhớ đến Người.",ref:"Sách Châm Ngôn 3,5-6"},
+  {text:"Tôi có thể làm mọi sự nhờ Đấng ban sức mạnh cho tôi.",ref:"Thư gửi tín hữu Phi-líp-phê 4,13"},
+  {text:"Này Thầy ở với anh em mọi ngày cho đến tận thế.",ref:"Tin Mừng theo Thánh Mát-thêu 28,20"},
+  {text:"Đừng sợ, vì Ta ở với ngươi; đừng hoảng hốt, vì Ta là Thiên Chúa của ngươi.",ref:"Sách Ngôn Sứ I-sai-a 41,10"},
+  {text:"Trong thế gian, anh em sẽ phải gian khổ; nhưng anh em cứ vững tâm, Thầy đã chiến thắng thế gian.",ref:"Tin Mừng theo Thánh Gioan 16,33"},
+  {text:"Thầy là ánh sáng thế gian. Ai theo Thầy sẽ không đi trong bóng tối, nhưng sẽ có ánh sáng đem lại sự sống.",ref:"Tin Mừng theo Thánh Gioan 8,12"},
+  {text:"Thầy là cây nho, anh em là cành. Ai ở trong Thầy, và Thầy ở trong người ấy, thì người ấy sinh nhiều hoa trái.",ref:"Tin Mừng theo Thánh Gioan 15,5"},
+  {text:"Vậy anh em đừng lo lắng về ngày mai, vì ngày mai sẽ lo cho ngày mai. Ngày nào có cái khổ của ngày ấy.",ref:"Tin Mừng theo Thánh Mát-thêu 6,34"},
+  {text:"Vui mừng vì có hy vọng, kiên nhẫn trong gian khổ, siêng năng cầu nguyện.",ref:"Thư gửi tín hữu Rô-ma 12,12"},
+  {text:"Bây giờ còn lại ba điều: đức tin, đức cậy và đức mến; nhưng lớn hơn cả là đức mến.",ref:"Thư thứ nhất gửi tín hữu Cô-rin-tô 13,13"},
+  {text:"Đối với Thiên Chúa, không có gì là không thể làm được.",ref:"Tin Mừng theo Thánh Lu-ca 1,37"},
+  {text:"Đừng sợ, hỡi đoàn chiên bé nhỏ, vì Cha anh em đã vui lòng ban Nước cho anh em.",ref:"Tin Mừng theo Thánh Lu-ca 12,32"},
+  {text:"Thầy ban cho anh em một điều răn mới: anh em hãy yêu thương nhau.",ref:"Tin Mừng theo Thánh Gioan 13,34"},
+  {text:"Thiên Chúa là tình yêu; ai ở trong tình yêu thì ở trong Thiên Chúa, và Thiên Chúa ở trong người ấy.",ref:"Thư thứ nhất của Thánh Gioan 4,16"},
+  {text:"Đức Giê-su Ki-tô hôm qua, hôm nay và cho đến muôn đời vẫn như thế.",ref:"Thư gửi tín hữu Híp-ri 13,8"},
+  {text:"Anh em là ánh sáng thế gian. Thành xây trên núi thì không thể nào giấu được.",ref:"Tin Mừng theo Thánh Mát-thêu 5,14"},
+  {text:"Anh em hãy cho đi, thì sẽ được cho lại: người ta sẽ đong cho anh em một đấu đầy.",ref:"Tin Mừng theo Thánh Lu-ca 6,38"},
+  {text:"Anh em cứ xin, thì sẽ được; cứ tìm, thì sẽ thấy; cứ gõ, thì sẽ mở cho.",ref:"Tin Mừng theo Thánh Mát-thêu 7,7"},
+  {text:"Thiên Chúa có quyền năng làm vượt quá mọi điều chúng ta xin hay suy nghĩ.",ref:"Thư gửi tín hữu Ê-phê-sô 3,20"},
+  {text:"Xin Thiên Chúa, nguồn hy vọng, ban cho anh em đầy niềm vui và bình an trong đức tin.",ref:"Thư gửi tín hữu Rô-ma 15,13"},
+  {text:"Đừng sợ! Này tôi báo cho anh em một tin mừng lớn, cũng là niềm vui cho toàn dân: hôm nay, Đấng Cứu Thế đã sinh ra cho anh em.",ref:"Tin Mừng theo Thánh Lu-ca 2,10-11"},
+  {text:"Ta sẽ ban cho các ngươi một trái tim mới, và đặt vào lòng các ngươi một thần khí mới.",ref:"Sách Ngôn Sứ Ê-dê-ki-en 36,26"},
+  {text:"Hoa trái của Thần Khí là bác ái, vui mừng, bình an, nhẫn nại, nhân từ, hiền hòa, trung tín, khiêm nhường, tiết độ.",ref:"Thư gửi tín hữu Ga-lát 5,22"}
 ];
-let lastLocIdx = -1;
-function drawLocThanh() {
+
+let lastLoc=-1,envOpened=false;
+function drawLoc(){
   let i;
-  do { i = Math.floor(Math.random() * LOC_THANH.length); } while (i === lastLocIdx && LOC_THANH.length > 1);
-  lastLocIdx = i;
+  do{i=Math.floor(Math.random()*LOC_THANH.length)}while(i===lastLoc&&LOC_THANH.length>1);
+  lastLoc=i;
   return LOC_THANH[i];
 }
-function showLocThanh(targetElText, targetElRef) {
-  const loc = drawLocThanh();
-  if (targetElText) targetElText.textContent = '“' + loc.text + '”';
-  if (targetElRef) targetElRef.textContent = loc.ref;
-  return loc;
-}
 
-$('envelope').addEventListener('click', () => {
+$('envelope').addEventListener('click',()=>{
+  const loc=drawLoc();
+  const box=$('blessing');
+  $('lt-text').textContent='“'+loc.text+'”';
+  $('lt-ref').textContent=loc.ref;
+  box.classList.toggle('long',loc.text.length>120);
   $('envelope').classList.add('is-open');
-  showLocThanh($('lt-text'), $('lt-ref'));
-  const b = $('blessing');
-  if (b && typeof b.animate === 'function') { try { b.animate([{ opacity: .4, transform: 'translateY(8px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 450 }); } catch (e) {} }
-  burst(W / 2, H * .55);
-  if (soundOn) { tone(880, .45, .04); tone(1046, .55, .035, .25); }
-});
-
-$('btnLocThanh').addEventListener('click', () => {
-  const loc = showLocThanh();
-  toast('Lộc Thánh: ' + loc.ref);
-  burst(W / 2, H * .45);
-  if (soundOn) { tone(880, .45, .04); }
+  if(!envOpened){envOpened=true;$('envLabel').textContent='Hái lộc khác'}
+  if(typeof box.animate==='function'){
+    try{box.animate([{opacity:.4,transform:'translateY(8px)'},{opacity:1,transform:'translateY(0)'}],{duration:450})}catch(e){}
+  }
+  burst(W/2,H*.55);
 });
 
 /* ===== Lời chúc & Supabase ===== */
-const WISHES_XMAS = [
+const WISHES_XMAS=[
   "Chúc mừng Giáng sinh! Cầu chúc cho bạn và gia đình một mùa Giáng sinh an lành, tràn đầy hồng ân Thiên Chúa và ấm áp yêu thương.",
   "Noel về, kính chúc bạn một mùa lễ hội bình an. Nguyện xin Chúa ban muôn phước lành và che chở gia đình bạn trong năm mới.",
   "Vinh danh Thiên Chúa trên trời, bình an dưới thế cho người thiện tâm. Chúc bạn một Giáng sinh thánh thiện và tràn đầy niềm vui.",
   "Mừng Chúa Giáng Sinh! Chúc bạn luôn tràn ngập niềm vui, bình an và hạnh phúc trong tình yêu của Chúa.",
   "Giáng sinh ấm áp, hồng ân tuôn đổ. Chúc bạn và gia đình một mùa Noel ý nghĩa, đong đầy yêu thương."
 ];
-const WISHES_NY = [
+const WISHES_NY=[
   "Xuân sang, kính chúc bạn và gia đình một năm mới an khang, thịnh vượng, vạn sự như ý, luôn tràn đầy hồng ân Thiên Chúa.",
   "Chúc mừng năm mới! Nguyện xin Chúa ban cho bạn một năm mới bình an, sức khỏe dồi dào và mọi sự may mắn.",
   "Cung chúc tân xuân! Chúc bạn năm mới phúc lộc song toàn, gia đình ấm êm, sự nghiệp thăng tiến.",
@@ -627,191 +917,203 @@ const WISHES_NY = [
   "Mùa xuân mang đến niềm hy vọng mới. Chúc bạn một năm mới an lành, luôn vững tin vào tình yêu và sự dẫn dắt của Chúa."
 ];
 
-const sheet = $('wishSheet');
-const wishInput = $('wishInput');
-const wishCount = $('wishCount');
-let remoteWishes = [];
-let wishBusy = false;
+const sheet=$('wishSheet');
+const wishInput=$('wishInput');
+const wishCount=$('wishCount');
+let remoteWishes=[];
+let wishBusy=false;
 
-const store={get(k,f){try{const v=localStorage.getItem(k);return v?JSON.parse(v):f}catch(e){return f}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const store={
+  get(k,f){try{const v=localStorage.getItem(k);return v?JSON.parse(v):f}catch(e){return f}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+};
 
-function countWish() { wishCount.textContent = wishInput.value.length + '/200'; }
-wishInput.addEventListener('input', countWish);
+function countWish(){wishCount.textContent=wishInput.value.length+'/200'}
+wishInput.addEventListener('input',countWish);
 
-function headers(extra={}) { return Object.assign({apikey:SUPABASE_KEY,'Content-Type':'application/json'},extra); }
+function headers(extra={}){return Object.assign({apikey:SUPABASE_KEY,'Content-Type':'application/json'},extra)}
 
-async function sendWish(text) {
-  const r = await fetch(SUPABASE_URL+'/rest/v1/wishes', {
+async function sendWish(text){
+  const r=await fetch(SUPABASE_URL+'/rest/v1/wishes',{
     method:'POST',
     headers:headers({Prefer:'return=minimal'}),
     body:JSON.stringify({text})
   });
-  if(!r.ok) throw Error('HTTP '+r.status);
+  if(!r.ok){
+    // Lấy thông báo lỗi từ Supabase để biết vì sao không lưu được
+    let msg='';
+    try{const j=await r.json();msg=j.message||j.hint||j.code||''}catch(e){}
+    const err=Error(msg||'HTTP '+r.status);
+    err.status=r.status;
+    throw err;
+  }
 }
 
-async function loadWishes() {
-  if(!SB_ON) return;
-  try {
-    const r = await fetch(SUPABASE_URL+'/rest/v1/wishes?select=text&order=created_at.desc&limit=50', {
+async function loadWishes(){
+  if(!SB_ON)return;
+  try{
+    const r=await fetch(SUPABASE_URL+'/rest/v1/wishes?select=text&order=created_at.desc&limit=50',{
       headers:headers(),
-      signal: AbortSignal.timeout ? AbortSignal.timeout(9000) : undefined
+      signal:AbortSignal.timeout?AbortSignal.timeout(9000):undefined
     });
-    if(!r.ok) throw Error('HTTP '+r.status);
-    const rows = await r.json();
-    const fetched = Array.isArray(rows) ? rows.map(x=>String(x.text||'').slice(0,200)).filter(Boolean) : [];
-    // Gộp lời chúc đang có local nếu có
-    remoteWishes = fetched;
+    if(!r.ok)throw Error('HTTP '+r.status);
+    const rows=await r.json();
+    remoteWishes=Array.isArray(rows)?rows.map(x=>String(x.text||'').slice(0,200)).filter(Boolean):[];
     renderGlobalWishes();
-  } catch(e) {
-    // Fallback to local
-    remoteWishes = store.get(WISH_KEY, []);
+  }catch(e){
+    remoteWishes=store.get(WISH_KEY,[]);
     renderGlobalWishes();
     toast('Chưa tải được lời chúc chung, đang hiển thị lưu trên máy');
   }
 }
 
-function renderGlobalWishes() {
-  const ul = $('wishList');
-  ul.textContent = '';
-  const list = remoteWishes.slice(0, 50);
-  if (!list.length) {
-    const li = document.createElement('li');
-    li.className = 'empty';
-    li.textContent = 'Chưa có lời chúc nào. Hãy là người đầu tiên!';
+function renderGlobalWishes(){
+  const ul=$('wishList');
+  ul.textContent='';
+  const list=remoteWishes.slice(0,50);
+  if(!list.length){
+    const li=document.createElement('li');
+    li.className='empty';
+    li.textContent='Chưa có lời chúc nào. Hãy là người đầu tiên!';
     ul.append(li);
     return;
   }
-  for (const text of list) {
-    const li = document.createElement('li');
-    const span = document.createElement('span');
-    span.textContent = text;
+  for(const text of list){
+    const li=document.createElement('li');
+    const span=document.createElement('span');
+    span.textContent=text;
     li.append(span);
     ul.append(li);
   }
 }
 
-function renderSuggestions(tab) {
-  const isXmas = tab === 'xmas';
-  const ul = $(isXmas ? 'wishListXmas' : 'wishListNy');
-  ul.textContent = '';
-  const list = isXmas ? WISHES_XMAS : WISHES_NY;
-  for (const text of list) {
-    const li = document.createElement('li');
-    const span = document.createElement('span');
-    span.textContent = text;
-    const b = document.createElement('button');
-    b.type = 'button';
-    b.className = 'mini';
-    b.textContent = 'Gửi';
-    b.addEventListener('click', () => {
+// Gợi ý: chạm vào câu là gửi luôn và đóng bảng lời chúc
+function renderSuggestions(tab){
+  const ul=$(tab==='xmas'?'wishListXmas':'wishListNy');
+  ul.textContent='';
+  for(const text of (tab==='xmas'?WISHES_XMAS:WISHES_NY)){
+    const li=document.createElement('li');
+    const btn=document.createElement('button');
+    btn.type='button';
+    btn.className='wish-pick';
+    btn.setAttribute('aria-label','Gửi lời chúc: '+text);
+    const span=document.createElement('span');
+    span.textContent=text;
+    const ico=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    ico.setAttribute('class','ico');
+    ico.setAttribute('aria-hidden','true');
+    const use=document.createElementNS('http://www.w3.org/2000/svg','use');
+    use.setAttribute('href','#i-send');
+    ico.append(use);
+    btn.append(span,ico);
+    btn.addEventListener('click',()=>{
       handleSendWish(text);
-      document.querySelector('[data-tab="global"]').click();
+      closeWish();
     });
-    li.append(span, b);
+    li.append(btn);
     ul.append(li);
   }
 }
 
-function showWishFloat(text) {
-  const el = document.createElement('div');
-  el.className = 'wish-float';
-  el.textContent = text;
-  el.style.left = rand(Math.min(150, W * .2), Math.max(Math.min(150, W * .2), W - Math.min(150, W * .2))) + 'px';
+// Hiện lời chúc đã gửi ở vị trí ngẫu nhiên trên màn hình, nằm giữa thanh trên và thanh dưới
+function showWishFloat(text){
+  const el=document.createElement('div');
+  el.className='wish-float';
+  el.textContent=text;
+  const root=getComputedStyle(document.documentElement);
+  const tabsH=parseFloat(root.getPropertyValue('--tabs-h'))||92;
+  const barH=parseFloat(root.getPropertyValue('--bar-h'))||152;
+  const half=Math.min(W*.7,280)/2, margin=14;
+  const x=rand(margin+half,Math.max(margin+half,W-margin-half));
+  const yMin=tabsH+margin+40, yMax=Math.max(yMin,H-barH-margin-40);
+  el.style.left=x+'px';
+  el.style.top=rand(yMin,yMax)+'px';
+  el.style.setProperty('--rot',rand(-6,6).toFixed(1)+'deg');
   document.body.append(el);
-  setTimeout(() => el.remove(), 7100);
+  setTimeout(()=>el.remove(),6600);
 }
 
-async function handleSendWish(text) {
-  if (wishBusy || !text.trim()) return;
-  const value = text.trim().slice(0, 200);
-  wishBusy = true;
-  $('wishSubmit').disabled = true;
-  
-  try {
-    if (SB_ON) {
-      await sendWish(value);
-      remoteWishes.unshift(value);
-      toast('Đã gửi lời chúc lên máy chủ');
-    } else {
-      throw Error('local-only');
-    }
-  } catch (err) {
-    const list = store.get(WISH_KEY, []);
+async function handleSendWish(text){
+  if(wishBusy||!text.trim())return;
+  const value=text.trim().slice(0,200);
+  wishBusy=true;
+  $('wishSubmit').disabled=true;
+  try{
+    if(!SB_ON)throw Error('local-only');
+    await sendWish(value);
+    remoteWishes.unshift(value);
+    toast('Đã gửi lời chúc lên máy chủ');
+  }catch(err){
+    const list=store.get(WISH_KEY,[]);
     list.unshift(value);
-    store.set(WISH_KEY, list.slice(0, 50));
-    remoteWishes = list;
-    toast(SB_ON ? 'Chưa gửi được lên máy chủ; đã lưu trên thiết bị' : 'Đã lưu lời chúc trên thiết bị');
-  } finally {
-    wishBusy = false;
-    $('wishSubmit').disabled = false;
-    wishInput.value = '';
+    store.set(WISH_KEY,list.slice(0,50));
+    remoteWishes=list;
+    console.error('Gửi lời chúc thất bại:',err);
+    const why=err.status?('mã '+err.status+(err.message?' - '+String(err.message).slice(0,90):'')):'lỗi mạng';
+    toast(SB_ON?'Chưa gửi được lên máy chủ ('+why+'); đã lưu trên thiết bị':'Đã lưu lời chúc trên thiết bị');
+  }finally{
+    wishBusy=false;
+    $('wishSubmit').disabled=false;
+    wishInput.value='';
     countWish();
     renderGlobalWishes();
     showWishFloat(value);
   }
 }
 
-$('wishSubmit').addEventListener('click', () => {
-  handleSendWish(wishInput.value);
-});
+$('wishSubmit').addEventListener('click',()=>handleSendWish(wishInput.value));
 
-function openWish() {
-  sheet.hidden = false;
+function openWish(){
+  sheet.hidden=false;
   countWish();
   loadWishes();
-  // Chuyển về tab Global
-  document.querySelector('[data-tab="global"]').click();
+  document.querySelector('[data-tab="compose"]').click();   // luôn mở ở mục Viết & gửi
 }
-function closeWish() { sheet.hidden = true; $('btnWish').focus(); }
+function closeWish(){sheet.hidden=true;$('btnWish').focus()}
 
-$('btnWish').addEventListener('click', openWish);
-$('wishClose').addEventListener('click', closeWish);
-sheet.addEventListener('click', e => { if (e.target === sheet) closeWish(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape' && !sheet.hidden) closeWish(); });
+$('btnWish').addEventListener('click',openWish);
+$('wishClose').addEventListener('click',closeWish);
+sheet.addEventListener('click',e=>{if(e.target===sheet)closeWish()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!sheet.hidden)closeWish()});
 
-document.querySelectorAll('.wish-tab').forEach(t => {
-  t.addEventListener('click', () => {
-    document.querySelectorAll('.wish-tab').forEach(x => x.setAttribute('aria-pressed', 'false'));
-    t.setAttribute('aria-pressed', 'true');
-    
-    document.querySelectorAll('.wish-tab-content').forEach(c => c.hidden = true);
-    const tabId = 'tab-' + t.dataset.tab;
-    $(tabId).hidden = false;
-    
-    if (t.dataset.tab === 'global') {
-      renderGlobalWishes();
-    } else {
-      renderSuggestions(t.dataset.tab);
-    }
+document.querySelectorAll('.wish-tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    const key=t.dataset.tab;
+    document.querySelectorAll('.wish-tab').forEach(x=>x.setAttribute('aria-pressed','false'));
+    t.setAttribute('aria-pressed','true');
+    document.querySelectorAll('.wish-tab-content').forEach(c=>c.hidden=true);
+    $('tab-'+key).hidden=false;
+    if(key==='sent')renderGlobalWishes();
+    else if(key==='xmas'||key==='ny')renderSuggestions(key);
   });
 });
 
-/* ===== Gestures & Resize ===== */
-let pointer=null;const uiSel='button,a,input,textarea,label,.bar,.tabs,.sheet';
-window.addEventListener('pointerdown',e=>{if(!e.isPrimary||e.target.closest(uiSel)){pointer=null;return}pointer={x:e.clientX,y:e.clientY}});
+/* ===== Cử chỉ vuốt & thay đổi kích thước ===== */
+let pointer=null;
+const uiSel='button,a,input,textarea,label,.bar,.tabs,.sheet';
+window.addEventListener('pointerdown',e=>{
+  if(!e.isPrimary||e.target.closest(uiSel)){pointer=null;return}
+  pointer={x:e.clientX,y:e.clientY};
+});
 window.addEventListener('pointerup',e=>{
   if(!pointer)return;
   const dx=e.clientX-pointer.x,dy=e.clientY-pointer.y;pointer=null;
   if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.4){
     const order=['xmas','ny','tet'];
     setScene(order[(order.indexOf(scene)+(dx<0?1:2))%3]);
-  }else if(Math.hypot(dx,dy)<12){burst(e.clientX,e.clientY)}
-});
-
-document.addEventListener('visibilitychange',()=>{
-  if(document.hidden){
-    if(activeFile) activeFile.pause();
-    clearInterval(musicTimer);musicTimer=null;
-  } else if(soundOn){
-    if(activeFile){ activeFile.play().catch(()=>startSynth()); } else { startSynth(); }
+  }else if(Math.hypot(dx,dy)<12){
+    burst(e.clientX,e.clientY);
   }
 });
 
 window.addEventListener('resize',()=>{resize();syncLayout()},{passive:true});
 window.addEventListener('orientationchange',()=>setTimeout(()=>{resize();syncLayout()},150));
 
+/* ===== Khởi động ===== */
 document.documentElement.dataset.scene=scene;
-updateBar();resize();syncLayout();raf=requestAnimationFrame(frame);
+updateBar();resize();syncLayout();updateSoundBtn();
+raf=requestAnimationFrame(frame);
+playMusic();   // thử tự phát; nếu trình duyệt chặn thì chờ lần chạm đầu tiên
 
 if(document.fonts&&document.fonts.ready){document.fonts.ready.then(()=>syncLayout()).catch(()=>{})}
 })();
